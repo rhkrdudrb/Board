@@ -2,7 +2,7 @@ package my.service;
 
 import java.util.ArrayList;
 
-import my.impl.MyVo;
+import my.vo.MyVo;
 
 
 public interface MyService {

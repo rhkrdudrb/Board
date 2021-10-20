@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import egovframework.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import my.service.MyService;
+import my.vo.MyVo;
 import my.mapper.MyMapper;
 @Service("MyService")
 public class MyServiceImpl extends EgovAbstractServiceImpl implements MyService {

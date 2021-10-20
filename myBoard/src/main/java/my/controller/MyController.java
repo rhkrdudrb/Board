@@ -17,8 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
-import my.impl.MyVo;
 import my.service.MyService;
+import my.vo.MyVo;
 @Controller
 public class MyController {
     @Autowired

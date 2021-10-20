@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="my.mapper.MyMapper">
 
-    <select id="test" resultType="my.impl.MyVo">
+    <select id="test" resultType="my.vo.MyVo">
 	select column1 as a1,column2 as a2,column3 as a3
 	 from table1
 	</select>

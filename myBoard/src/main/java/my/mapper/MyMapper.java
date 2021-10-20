@@ -3,7 +3,7 @@ package my.mapper;
 import java.util.ArrayList;
 
 import egovframework.rte.psl.dataaccess.mapper.Mapper;
-import my.impl.MyVo;
+import my.vo.MyVo;
 
 @Mapper("MyMapper")
 public interface MyMapper {
