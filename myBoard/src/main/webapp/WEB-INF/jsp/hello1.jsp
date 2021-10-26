@@ -21,6 +21,7 @@ ${content}
 	</tr>
 	<div onclick="Test()">
 테스트
+${content}
 </div>
 <div onclick="sessionDel()">
 세션지우기

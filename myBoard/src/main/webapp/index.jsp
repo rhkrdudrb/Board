@@ -14,8 +14,10 @@
 	<input type = "button" value = "확인" onclick="login()">
 	
 	<textarea id="freeContext" name="freeContext"></textarea>
+	
 	<input type = "button" value = "에디터 테스트" onclick="upload()">
-	 
+	
+
 </body>
 <script type="text/javascript" src="./ck/ckeditor/ckeditor.js" ></script>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>

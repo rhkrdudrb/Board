@@ -8,7 +8,9 @@
 %>
 <title>title</title>
 </head>
-
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src=//unpkg.com/vue></script>
+<script src=//unpkg.com/vuebars@0.1.6></script>
 <body onLoad="init()">
 <!-- <body> -->
 <%-- ${resultStr} --%>
@@ -43,15 +45,37 @@
                     <td id="id3"></td>
                     <td id="id4"></td>
                 </tr>
-            
             </tbody>
         </table>
+        
+        <template>
+  <div class="base-demo" style="width: 400px">
+    <vue-table-dynamic :params="params"></vue-table-dynamic>
+  </div>
+</template>
+        
+		<div id="app">
+		  <bars
+		    :data="[1, 20, -5, 9, 5, 10, 3, 5, 5, 12, 1, 8, 2, 9, 14]"
+		    :gradient="['#6fa8dc', '#42b983']"
+		    :barWidth="5"
+		    :growDuration="4">
+		  </bars>
+		</div>
+        <div id="app">{{message}}</div>
         <hr/>
         <a class="btn btn-outline-info" style="float:right">글쓰기</a>
     </div>
 </body>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+
 <script>
+var app = new Vue({
+	  el: '#app',
+	  data: {
+	    message: '안녕하세요 Vue!'
+	  }
+	})
 function init() {
 	
 	let resultStr = JSON.parse('${resultStr}');

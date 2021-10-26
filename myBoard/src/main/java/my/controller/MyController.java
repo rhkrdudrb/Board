@@ -48,7 +48,7 @@ public class MyController {
 			mav.addObject("resultStr", jsonData);
 			System.out.println(str);
 			
-			mav.setViewName("list");	
+			mav.setViewName("listT");	
 		}
 		
 		return mav;
