@@ -42,7 +42,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">결재</div>
+                <div class="sidebar-brand-text mx-3">전자결재</div>
             </a>
 
             <!-- Divider -->
@@ -63,6 +63,12 @@
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>결제정보</span></a>
             </li>
+            <hr class="sidebar-divider my-0"">
+             <li class="nav-item">
+                <a class="nav-link" href="index.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>결재함</span></a>
+            </li>
 			<hr class="sidebar-divider my-0"">
              <li class="nav-item">
                 <a class="nav-link" href="index.html">
@@ -73,7 +79,7 @@
              <li class="nav-item">
                 <a class="nav-link" href="index.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>반려함</span></a>
+                    <span>종결함</span></a>
             </li>
 
             <!-- Divider -->

@@ -58,12 +58,12 @@ public class MyController {
 			pageMaker.setTotalCount(MyService.getListCnt());
 			mav.addObject("pageMaker", pageMaker);
 			
-			mav.setViewName("listT");	
+			mav.setViewName("main");	
 		}
 		
 		return mav;
 	}	
-	@RequestMapping(value = "/login", method = {RequestMethod.POST })
+	@RequestMapping(value = "/userLogIn", method = {RequestMethod.POST })
 	public ModelAndView login(HttpServletRequest req,ModelAndView mav,@ModelAttribute MyVo vo) throws Exception {
 		HttpSession session = req.getSession();
 		
@@ -73,24 +73,9 @@ public class MyController {
 		session.setAttribute("id",vo.getId());
 		session.setAttribute("pw", vo.getPw());
 		
-		mav.setViewName("hello1");
+		mav.setViewName("main");
 		return mav;
 	}	
-	@RequestMapping(value = "/sessionDel", method = {RequestMethod.POST })
-	public ModelAndView sessionDel(HttpServletRequest req,ModelAndView mav,@ModelAttribute MyVo vo) throws Exception {
-		HttpSession session = req.getSession();
-		 session.removeAttribute("id");
-		 session.removeAttribute("pw");
-		mav.setViewName("hello1");
-		return mav;
-	}
-	@RequestMapping(value = "/upload", method = {RequestMethod.POST })
-	public ModelAndView upload(HttpServletResponse res,HttpServletRequest req,ModelAndView mav,@ModelAttribute MyVo vo) throws Exception {
-		System.out.println(vo.getFreeContext());
-		res.setCharacterEncoding("UTF-8");
-		res.setContentType("text/html; charset=UTF-8");
-		mav.addObject("content", vo.getFreeContext());
-		mav.setViewName("hello1");
-		return mav;
-	}   
-}
+	
+	
+}   

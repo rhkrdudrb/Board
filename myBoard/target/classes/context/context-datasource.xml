@@ -30,7 +30,7 @@
 <!--      oracle (POM에서 commons-dbcp, ojdbc(라이센스 사항으로 별도로 배포되지 않음) 관련 라이브러리 설정) -->
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-        <property name="url" value="jdbc:oracle:thin:@172.17.81.84:1521:xe" />
+        <property name="url" value="jdbc:oracle:thin:@172.17.82.62:1521:xe" />
         <property name="username" value="rhkrdudrb12"/>
         <property name="password" value="rhkr2734"/>
     </bean>
