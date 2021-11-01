@@ -2,8 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="my.mapper.MyMapper">
 
-    <select id="test" resultType="my.vo.MyVo">
-	select column1 as a1,column2 as a2,column3 as a3
-	 from table1
+	<select id="getList" parameterType="my.vo.MyVo" resultType="my.vo.MyVo">
+		  SELECT  COLUMN1, 
+			      COLUMN2, 
+			      COLUMN3,
+			      COLUMN4, 
+			      COLUMN5,
+	              COLUMN6
+		 FROM ( 
+		        SELECT  COLUMN1, 
+					    COLUMN2, 
+					    COLUMN3,
+					    COLUMN4, 
+					    COLUMN5,
+			            COLUMN6, 
+		               ROW_NUMBER() OVER(ORDER BY COLUMN1 DESC) AS RNUM
+		         FROM TABLE1 
+		                       ) MP
+		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+		ORDER BY COLUMN1 DESC
 	</select>
+		<select id="getListCnt" parameterType="int" resultType="int">
+		SELECT COUNT(*) 
+		FROM TABLE1
+	</select>
+	
+	
+	
 </mapper>

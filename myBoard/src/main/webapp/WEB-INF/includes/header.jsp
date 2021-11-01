@@ -12,7 +12,9 @@
     <meta name="author" content="">
 
     <title>전자결재</title>
-
+	<style type="text/css">
+			li {list-style: none; float: left; padding: 6px;}
+	</style>
     <!-- Custom fonts for this template -->
     <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>
     <link

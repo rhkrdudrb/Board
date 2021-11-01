@@ -10,7 +10,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import egovframework.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import my.service.MyService;
+import my.vo.Criteria;
 import my.vo.MyVo;
+
 import my.mapper.MyMapper;
 @Service("MyService")
 public class MyServiceImpl extends EgovAbstractServiceImpl implements MyService {
@@ -24,5 +26,13 @@ public class MyServiceImpl extends EgovAbstractServiceImpl implements MyService 
 	public ArrayList<MyVo> test(MyVo mv) {
 		
 		return MyMapper.test(mv);
+	}
+	
+	public int getListCnt() {
+		return MyMapper.getListCnt();
+	}
+
+	public ArrayList<MyVo> getList(Criteria cri)  {
+		return MyMapper.getList(cri);
 	}
 }

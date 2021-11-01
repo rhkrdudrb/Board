@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
+import javax.enterprise.inject.Model;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -18,7 +19,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 
 import my.service.MyService;
+import my.vo.Criteria;
 import my.vo.MyVo;
+import my.vo.PageMaker;
+
 @Controller
 public class MyController {
     @Autowired
@@ -31,9 +35,8 @@ public class MyController {
 	ModelAndView mav = new ModelAndView();
 	
 	@RequestMapping(value="/test")
-	public ModelAndView test(HttpServletRequest req,HttpServletResponse res,ModelAndView mav,@ModelAttribute MyVo vo) throws Exception {
+	public ModelAndView test(HttpServletRequest req,HttpServletResponse res,ModelAndView mav,@ModelAttribute MyVo vo,Criteria cri) throws Exception {
 		HttpSession session = req.getSession();
-		
 		if(session.getAttribute("id") == null) {
 			res.setCharacterEncoding("UTF-8");
 			res.setContentType("text/html; charset=UTF-8");
@@ -42,11 +45,18 @@ public class MyController {
 			out.flush();
 			mav.setViewName("index");
 		}else {
-			ArrayList<MyVo> str = MyService.test(vo);
+//			ArrayList<MyVo> str = MyService.test(vo);
 			//json객체 만들기
-			String jsonData = gson.toJson(str);
-			mav.addObject("resultStr", jsonData);
-			System.out.println(str);
+//			String jsonData = gson.toJson(str);
+//			mav.addObject("resultStr", jsonData);
+//			System.out.println(str);
+			String jsonData = gson.toJson(MyService.getList(cri));
+			mav.addObject("list", jsonData);
+			
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(MyService.getListCnt());
+			mav.addObject("pageMaker", pageMaker);
 			
 			mav.setViewName("listT");	
 		}

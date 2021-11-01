@@ -4,10 +4,14 @@ import java.io.Serializable;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class MyVo {
-	private String a1;
-	private String a2;
-	private String a3;
+public class MyVo extends PageMaker{
+	
+	private int column1;
+	private String column2;
+	private String column3;
+	private String column4;
+	private String column5;
+	private String column6;
 	private String id;
 	private String pw;
     private String freeContext;
@@ -30,22 +34,42 @@ public class MyVo {
 	public void setPw(String pw) {
 		this.pw = pw;
 	}
-	public String getA1() {
-		return a1;
+	public int getColumn1() {
+		return column1;
 	}
-	public void setA1(String a1) {
-		this.a1 = a1;
+	public void setColumn1(int column1) {
+		this.column1 = column1;
 	}
-	public String getA2() {
-		return a2;
+	public String getColumn2() {
+		return column2;
 	}
-	public void setA2(String a2) {
-		this.a2 = a2;
+	public void setColumn2(String column2) {
+		this.column2 = column2;
 	}
-	public String getA3() {
-		return a3;
+	public String getColumn3() {
+		return column3;
 	}
-	public void setA3(String a3) {
-		this.a3 = a3;
+	public void setColumn3(String column3) {
+		this.column3 = column3;
 	}
-}
+	public String getColumn4() {
+		return column4;
+	}
+	public void setColumn4(String column4) {
+		this.column4 = column4;
+	}
+	public String getColumn5() {
+		return column5;
+	}
+	public void setColumn5(String column5) {
+		this.column5 = column5;
+	}
+	public String getColumn6() {
+		return column6;
+	}
+	public void setColumn6(String column6) {
+		this.column6 = column6;
+	}
+	
+	}
+
