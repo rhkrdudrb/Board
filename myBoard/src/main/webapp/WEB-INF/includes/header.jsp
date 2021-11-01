@@ -50,7 +50,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" onclick="draftLetter()">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>기안서작성</span></a>
             </li>
@@ -59,29 +59,36 @@
             <hr class="sidebar-divider my-0"">
 
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" onclick="paymentInfo()">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>결제정보</span></a>
             </li>
             <hr class="sidebar-divider my-0"">
              <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" onclick="paymentBox()">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>결재함</span></a>
             </li>
 			<hr class="sidebar-divider my-0"">
              <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" onclick="draftLetterBox()">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>기안함</span></a>
             <hr class="sidebar-divider my-0"">
             </li>
-             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+             <li class="nav-item" onclick="end()">
+                <a class="nav-link">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>종결함</span></a>
             </li>
-
+            <hr class="sidebar-divider my-0"">
+            </li>
+             <li class="nav-item" onclick="end()">
+                <a class="nav-link">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>조직관리</span></a>
+            </li>
+         
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -304,3 +311,20 @@
 
                 </nav>
                 <!-- End of Topbar -->
+<script>
+ function draftLetterBox(){
+ 	location.href = '/draftLetterBox';
+}
+ function paymentBox(){
+ 	location.href = '/paymentBox';
+}
+function paymentInfo(){
+	location.href = '/paymentInfo';
+}
+ function draftLetter(){
+	location.href = '/draftLetter';
+}
+function end(){
+	location.href = '/end';
+}
+</script>

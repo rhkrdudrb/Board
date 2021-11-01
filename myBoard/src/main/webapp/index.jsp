@@ -18,7 +18,7 @@
       </button>
       <script>
       function userLogIn(){
-    			location.href = 'userLogIn';
+    			location.href = '/test';
     	}
       </script>
       <div class="bottomText">

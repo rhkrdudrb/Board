@@ -36,20 +36,29 @@ public class MyController {
 	
 	@RequestMapping(value="/test")
 	public ModelAndView test(HttpServletRequest req,HttpServletResponse res,ModelAndView mav,@ModelAttribute MyVo vo,Criteria cri) throws Exception {
-		HttpSession session = req.getSession();
-		if(session.getAttribute("id") == null) {
-			res.setCharacterEncoding("UTF-8");
-			res.setContentType("text/html; charset=UTF-8");
-			PrintWriter out = res.getWriter();
-			out.println("<script>alert('로그인정보를 확인하세요.');</script>");
-			out.flush();
-			mav.setViewName("index");
-		}else {
+//		HttpSession session = req.getSession();
+//		
+//		System.out.println(vo.getId());
+//		System.out.println(vo.getPw());
+//		//세션담기
+//		session.setAttribute("id",vo.getId());
+//		session.setAttribute("pw", vo.getPw());
+//		
+//		if(session.getAttribute("id") == null) {
+//			res.setCharacterEncoding("UTF-8");
+//			res.setContentType("text/html; charset=UTF-8");
+//			PrintWriter out = res.getWriter();
+//			out.println("<script>alert('로그인정보를 확인하세요.');</script>");
+//			out.flush();
+//			mav.setViewName("index");
+//		}else {}
 //			ArrayList<MyVo> str = MyService.test(vo);
 			//json객체 만들기
 //			String jsonData = gson.toJson(str);
 //			mav.addObject("resultStr", jsonData);
 //			System.out.println(str);
+		
+		
 			String jsonData = gson.toJson(MyService.getList(cri));
 			mav.addObject("list", jsonData);
 			
@@ -59,23 +68,134 @@ public class MyController {
 			mav.addObject("pageMaker", pageMaker);
 			
 			mav.setViewName("main");	
-		}
+		
 		
 		return mav;
 	}	
-	@RequestMapping(value = "/userLogIn", method = {RequestMethod.POST })
-	public ModelAndView login(HttpServletRequest req,ModelAndView mav,@ModelAttribute MyVo vo) throws Exception {
-		HttpSession session = req.getSession();
+	
+	@RequestMapping(value="/end")
+	public ModelAndView end(HttpServletRequest req,HttpServletResponse res,ModelAndView mav,@ModelAttribute MyVo vo,Criteria cri) throws Exception {
+//		HttpSession session = req.getSession();
+//
+//		if(session.getAttribute("id") == null) {
+//			res.setCharacterEncoding("UTF-8");
+//			res.setContentType("text/html; charset=UTF-8");
+//			PrintWriter out = res.getWriter();
+//			out.println("<script>alert('로그인정보를 확인하세요.');</script>");
+//			out.flush();
+//			mav.setViewName("index");
+//		}else {
+//			
+//		}
+		String jsonData = gson.toJson(MyService.getList(cri));
+		mav.addObject("list", jsonData);
 		
-		System.out.println(vo.getId());
-		System.out.println(vo.getPw());
-		//세션담기
-		session.setAttribute("id",vo.getId());
-		session.setAttribute("pw", vo.getPw());
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(MyService.getListCnt());
+		mav.addObject("pageMaker", pageMaker);
 		
-		mav.setViewName("main");
+		mav.setViewName("end");	
 		return mav;
-	}	
-	
-	
+	}
+	@RequestMapping(value="/draftLetter")
+	public ModelAndView draftLetter(HttpServletRequest req,HttpServletResponse res,ModelAndView mav,@ModelAttribute MyVo vo,Criteria cri) throws Exception {
+//		HttpSession session = req.getSession();
+//
+//		if(session.getAttribute("id") == null) {
+//			res.setCharacterEncoding("UTF-8");
+//			res.setContentType("text/html; charset=UTF-8");
+//			PrintWriter out = res.getWriter();
+//			out.println("<script>alert('로그인정보를 확인하세요.');</script>");
+//			out.flush();
+//			mav.setViewName("index");
+//		}else {
+//			
+//		}
+		String jsonData = gson.toJson(MyService.getList(cri));
+		mav.addObject("list", jsonData);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(MyService.getListCnt());
+		mav.addObject("pageMaker", pageMaker);
+		
+		mav.setViewName("draftLetter");	
+		return mav;
+	}
+	@RequestMapping(value="/draftLetterBox")
+	public ModelAndView draftLetterBox(HttpServletRequest req,HttpServletResponse res,ModelAndView mav,@ModelAttribute MyVo vo,Criteria cri) throws Exception {
+//		HttpSession session = req.getSession();
+//
+//		if(session.getAttribute("id") == null) {
+//			res.setCharacterEncoding("UTF-8");
+//			res.setContentType("text/html; charset=UTF-8");
+//			PrintWriter out = res.getWriter();
+//			out.println("<script>alert('로그인정보를 확인하세요.');</script>");
+//			out.flush();
+//			mav.setViewName("index");
+//		}else {
+//			
+//		}
+		String jsonData = gson.toJson(MyService.getList(cri));
+		mav.addObject("list", jsonData);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(MyService.getListCnt());
+		mav.addObject("pageMaker", pageMaker);
+		
+		mav.setViewName("draftLetterBox");	
+		return mav;
+	}
+	@RequestMapping(value="/paymentBox")
+	public ModelAndView paymentBox(HttpServletRequest req,HttpServletResponse res,ModelAndView mav,@ModelAttribute MyVo vo,Criteria cri) throws Exception {
+//		HttpSession session = req.getSession();
+//
+//		if(session.getAttribute("id") == null) {
+//			res.setCharacterEncoding("UTF-8");
+//			res.setContentType("text/html; charset=UTF-8");
+//			PrintWriter out = res.getWriter();
+//			out.println("<script>alert('로그인정보를 확인하세요.');</script>");
+//			out.flush();
+//			mav.setViewName("index");
+//		}else {
+//			
+//		}
+		String jsonData = gson.toJson(MyService.getList(cri));
+		mav.addObject("list", jsonData);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(MyService.getListCnt());
+		mav.addObject("pageMaker", pageMaker);
+		
+		mav.setViewName("paymentBox");	
+		return mav;
+	}
+	@RequestMapping(value="/paymentInfo")
+	public ModelAndView paymentInfo(HttpServletRequest req,HttpServletResponse res,ModelAndView mav,@ModelAttribute MyVo vo,Criteria cri) throws Exception {
+//		HttpSession session = req.getSession();
+//
+//		if(session.getAttribute("id") == null) {
+//			res.setCharacterEncoding("UTF-8");
+//			res.setContentType("text/html; charset=UTF-8");
+//			PrintWriter out = res.getWriter();
+//			out.println("<script>alert('로그인정보를 확인하세요.');</script>");
+//			out.flush();
+//			mav.setViewName("index");
+//		}else {
+//			
+//		}
+		String jsonData = gson.toJson(MyService.getList(cri));
+		mav.addObject("list", jsonData);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(MyService.getListCnt());
+		mav.addObject("pageMaker", pageMaker);
+		
+		mav.setViewName("paymentInfo");	
+		return mav;
+	}
 }   
