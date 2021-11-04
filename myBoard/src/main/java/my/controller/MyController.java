@@ -198,4 +198,21 @@ public class MyController {
 		mav.setViewName("paymentInfo");	
 		return mav;
 	}
+	@RequestMapping(value="/approvalline")
+	public ModelAndView approvalline(HttpServletRequest req,HttpServletResponse res,ModelAndView mav,@ModelAttribute MyVo vo,Criteria cri) throws Exception {
+//		HttpSession session = req.getSession();
+//
+//		if(session.getAttribute("id") == null) {
+//			res.setCharacterEncoding("UTF-8");
+//			res.setContentType("text/html; charset=UTF-8");
+//			PrintWriter out = res.getWriter();
+//			out.println("<script>alert('로그인정보를 확인하세요.');</script>");
+//			out.flush();
+//			mav.setViewName("index");
+//		}else {
+//			
+//		}
+		mav.setViewName("approvalline");	
+		return mav;
+	}
 }   

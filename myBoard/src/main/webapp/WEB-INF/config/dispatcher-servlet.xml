@@ -23,7 +23,6 @@
 	<mvc:resources mapping="/resources/**" location="/resources/"/>
 	<mvc:resources mapping="/SmartEditor/**" location="/SmartEditor/"/>	
 	<mvc:resources mapping="/tail/**" location="/tail/"/>
-  
 	
     <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver" p:order="1"
 	    p:viewClass="org.springframework.web.servlet.view.JstlView"
