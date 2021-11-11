@@ -3,8 +3,30 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head>	
+<style>
+select {
+width: 200px;
+padding: .8em .5em;
+border: 1px solid #999;
+font-family: inherit;
+background: url('img/selectboxmig.jfif/') no-repeat 95% 50%;
+border-radius: 0px;
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+}
 
+select::-ms-expand {
+    display: none;
+}
+
+</style>
+ <!-- include Vue 2.x -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@^2"></script>
+    <!-- include vue-treeselect & its styles. you can change the version tag to better suit your needs. -->
+    <script src="https://cdn.jsdelivr.net/npm/@riophae/vue-treeselect@^0.4.0/dist/vue-treeselect.umd.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@riophae/vue-treeselect@^0.4.0/dist/vue-treeselect.min.css">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">

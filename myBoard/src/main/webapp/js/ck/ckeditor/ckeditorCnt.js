@@ -184,7 +184,7 @@ function selectbox() {
 		ckHtml.append("<td rowspan='3'>&nbsp;</td>");
 		ckHtml.append("</tr>");
 		ckHtml.append("<tr>");
-		ckHtml.append("<td style='height:50px; text-align:center; width:200px'>기안일</td>");
+		ckHtml.append("<td id ='test' style='height:50px; text-align:center; width:200px'>기안일</td>");
 		ckHtml.append("<td style='width:300px'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td>");
 		ckHtml.append("</tr>");
 		ckHtml.append("<tr>");
@@ -200,6 +200,11 @@ function selectbox() {
 		ckHtml.append("<td colspan='2' rowspan='1'>&nbsp;</td>");
 		ckHtml.append("</tr>");
 		ckHtml.append("<tr>");
+		ckHtml.append("");
+		ckHtml.append("");
+		ckHtml.append("");
+		ckHtml.append("");
+		ckHtml.append("");
 		ckHtml.append("<td colspan='3' style='height:800px; text-align:center; width:200px'>");
 		ckHtml.append("<table align='center' border='1' cellpadding='1' cellspacing='1' style='width:950px'>");
 		ckHtml.append("<tbody>");
@@ -253,9 +258,12 @@ function selectbox() {
 		
 		var ckHtmlInfo = ckHtml.toString();
 		CKEDITOR.instances.freeContext.setData(ckHtmlInfo);
-	}else{
+	}else {
 		const element = document.getElementById('Title');
 		element.innerHTML = '선택하세요.';
 		CKEDITOR.instances.freeContext.setData("");
 	}
+	
+	
+
 }
