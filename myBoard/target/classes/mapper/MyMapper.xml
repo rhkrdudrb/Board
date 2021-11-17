@@ -2,6 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="my.mapper.MyMapper">
 
+	<select id="login" resultType="my.vo.MyVo">
+			SELECT STF_ID AS id
+		     , STF_NM AS usrNm
+		     , STF_PW AS pw 
+		     , STF_SQ AS sq
+			  FROM STF_TB
+		     WHERE STF_ID = #{id}
+		       AND STF_PW = #{pw}
+	</select>
+	
+	<select id="getInfo" resultType="my.vo.MyVo">
+			SELECT S.DPT_SQ AS dptsq,
+			       D.DPT_NM AS dptnm,
+			       S.STF_NM AS stfnm,
+                   A.APV_NM AS apvnm,
+                   A.APV_DATE AS apvdate,
+                   A.APV_FORM as apvform
+			    FROM stf_tb S 
+			    INNER JOIN DPT_TB D ON S.DPT_SQ = D.DPT_SQ
+                INNER JOIN APV_TB A ON S.STF_SQ = A.APV_STF_SQ
+			    WHERE STF_PW = #{pw}
+			    AND STF_ID = #{id}
+	</select>
+	
 	<select id="getList" parameterType="my.vo.MyVo" resultType="my.vo.MyVo">
 		  SELECT  COLUMN1, 
 			      COLUMN2, 
@@ -27,6 +51,100 @@
 		FROM TABLE1
 	</select>
 	
-	
-	
+	 <insert id="apvinsert" parameterType="my.vo.MyVo">  
+	   INSERT INTO APV_TB (
+	   				DIV_APV_SQ
+                    ,APV_SQ
+                    ,STF_SQ
+                    ,APV_NM
+                    ,APV_NO
+                    ,APV_CONTENTS
+                    ,APV_STATE
+                    ,APV_FORM
+                    ,APV_DATE
+                    ,APV_STF_SQ) 
+		VALUES (
+				(SELECT 
+				    NVL(MAX(DIV_APV_SQ)+1,0)AS DIV_APV_SQ
+				    FROM APV_TB)
+		        , (SELECT 
+				     NVL(MAX(APV_SQ)+1,0) AS APV_SQ 
+				     FROM APV_TB)
+		        ,'DS'
+		        ,#{Title}
+		        ,'DSDS'
+		        ,#{freeContext}
+		        ,'A'
+		        ,#{form}
+		        ,SYSDATE
+		        ,#{sq})
+	 </insert> 
+	 <insert id="divinsert" parameterType="my.vo.MyVo">  
+			 INSERT INTO DIV_APV_TB
+		(
+		    DIV_APV_SQ
+		  , DIV_APV_NM
+		)
+		VALUES
+		(
+		(SELECT NVL(MAX(DIV_APV_SQ)+1,0) AS DIV_APV_SQ FROM DIV_APV_TB)
+		,'결재중'
+		)
+		</insert>
+		<insert id="join" parameterType="my.vo.MyVo">  
+			 INSERT INTO DIV_APV_TB
+		(
+		    DIV_APV_SQ
+		  , DIV_APV_NM
+		)
+		VALUES
+		(
+		(SELECT NVL(MAX(DIV_APV_SQ)+1,0) AS DIV_APV_SQ FROM DIV_APV_TB)
+		,'결재중'
+		)
+		</insert>
+		
+		 <insert id="divinsert" parameterType="my.vo.MyVo">  
+			 INSERT INTO DIV_APV_TB
+		(
+		    DIV_APV_SQ
+		  , DIV_APV_NM
+		)
+		VALUES
+		(
+		(SELECT NVL(MAX(DIV_APV_SQ)+1,0) AS DIV_APV_SQ FROM DIV_APV_TB)
+		,'결재중'
+		)
+		</insert>
+		<insert id="join" parameterType="my.vo.MyVo">  
+		INSERT INTO STF_TB(
+				    STF_SQ
+				    ,AD_SQ
+				    ,DPT_SQ
+				    ,RNK_SQ
+				    ,STF_NM
+				    ,STF_PW
+				    ,STF_PH
+				    ,STF_BS_PH
+				    ,STF_EML
+				    ,STF_ENT
+				    ,STF_REG
+				)
+				VALUES( 
+				    (SELECT 
+						NVL(MAX(STF_SQ)+1,0)AS STF_SQ
+					      FROM STF_TB)
+				    ,'6'
+				    , #{department}
+				    , #{rank}
+				    , #{name}
+				    , #{id}
+				    , #{pw}
+				    , #{call}
+				    , #{companyCall}
+				    , #{email}
+				    , #{Companyfirstdate}
+				    , SYSDATE
+				)
+		</insert>
 </mapper>

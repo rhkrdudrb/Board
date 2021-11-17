@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+   
+
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <!-- 헤더시작부분 -->
 	<%@include file="../includes/header.jsp" %>
-
+			<form action="insert" method="post">
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
@@ -38,13 +40,13 @@
 								        </td>
 										</tr>
 											<tr>
-												<th style="text-align:center; vertical-align: middle;"  id="Title" name="Title">결제선</th>
+												<th style="text-align:center; vertical-align: middle;"  id="Title" >결제선</th>
 												<ul class="pagination">
 								 				<td> <li id="toggle"class="paginate_button page-item previous" onclick="pop()"><a class="page-link"> 결제선 선택 </a></li></td>
 											</tr>
 											<tr>
 												<th style="text-align:center; vertical-align: middle;">제목</th>
-												<td><input style="width:600px" type="text"/></td>
+												<td><input style="width:600px" type="text" id="Title" name="Title"/></td>
 											</tr>
 										</tbody>
 									</table>
@@ -55,12 +57,23 @@
                                <textarea id="freeContext" name="freeContext" style="height: 1000px"></textarea>
                                
                         </div>
+                        <%
+                        String id = (String)session.getAttribute("id");
+                        String pw = (String)session.getAttribute("pw");
+                        String sq = (String)session.getAttribute("sq");
+                        %>
+                        <input type="hidden" id="id"name="id" value="<%= id %>"/>
+                        <input type="hidden" id="pw"name="pw" value="<%= pw %>"/>
+                        <input type="hidden" id="sq"name="sq" value="<%= sq %>"/>
+                        <input type="hidden" id="form"name="form"/>
                         <div style="position: relative; left: 1650px; top=-20px;">
-                        <li class="paginate_button page-item previous" onclick=""><a class="page-link"> 결재상신</a></li>
+                        <input type="hidden" id ="line" name="line"></div>
+                        <input type="submit" class="page-link" value="결재상신"></input>
                         </div>
                     </div>
                 </div>
                 
+                </form>
                 <!-- 풋터시작 -->
             <%@include file="../includes/footer.jsp" %>
 <!-- 제이쿼리 cnd -->
@@ -93,17 +106,19 @@ $(function() {
 
 			});
 	function pop() {
-		var _width = '1200';
-		var _height = '750';
+		var _width = '1500';
+		var _height = '1000';
 		var _left = Math.ceil(( window.screen.width - _width )/2);
 		var _top = Math.ceil(( window.screen.height - _height )/2); 
  		window.open('approvalline','popupView',"width=800,height=650,left="+_left+",top="+_top);
 	}
 	//자식창에서 받아온 데이터적용
 	function setData(treeCnt){
+		
 		var now = new Date();
 		var date = now.getMonth()+1 +"/" + now.getDate();
 		var SetTreeCnt = treeCnt.text();
+		$('#line').val(SetTreeCnt);
 		ckHtml = "";
 		var ckHtml = new StringBuffer();
 		if($('#select').val() == 1){

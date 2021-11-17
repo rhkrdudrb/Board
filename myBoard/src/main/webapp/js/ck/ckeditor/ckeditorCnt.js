@@ -13,7 +13,7 @@ function selectbox() {
 	if ($('#select').val() == 1) {
 		const element = document.getElementById('Title');
 		element.innerHTML = '법인카드사용승인서';
-
+		$('#form').val($('#Title').text());
 		ckHtml.append("<table align='center' border='1' cellpadding='1' cellspacing='1' style='width:1000px'>");
 		ckHtml.append("<tbody>");
 		ckHtml.append("<tr>");
@@ -97,6 +97,7 @@ function selectbox() {
 	} else if ($('#select').val() == 2) {
 		const element = document.getElementById('Title');
 		element.innerHTML = '휴가신청서';
+		$('#form').val($('#Title').text());
 		ckHtml.append("<table align='center' border='1' cellpadding='1' cellspacing='1' style='width:1000px'>");
 		ckHtml.append("<tbody>");
 		ckHtml.append("<tr>");
@@ -176,6 +177,7 @@ function selectbox() {
 	}else if($('#select').val() == 3){
 		const element = document.getElementById('Title');
 		element.innerHTML = '사직서';
+		$('#form').val($('#Title').text());
 		ckHtml.append("<table align='center' border='1' cellpadding='1' cellspacing='1' style='width:1000px'>");
 		ckHtml.append("<tbody>");
 		ckHtml.append("<tr>");

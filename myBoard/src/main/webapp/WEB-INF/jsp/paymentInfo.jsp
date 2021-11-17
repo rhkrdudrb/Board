@@ -29,7 +29,7 @@
                                             <th style="width: 600px; text-align:center;">제목</th>
                                             <th style="width: 80px; text-align:center;">기안자</th>
                                            <th style="width: 120px; text-align:center;">부서</th>
-                                           <th style="width: 80px; text-align:center;">시행일</th>
+                                           <th style="width: 80px; text-align:center;">등록일</th>
                                         </tr>
                                     </thead>
 <!--                                     <tfoot> -->
@@ -60,26 +60,27 @@
                         </div>
                     </div>
                 </div>
+              
                 <!-- 풋터시작 -->
             <%@include file="../includes/footer.jsp" %>
 <script src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
  <script>
  
  $(document).ready(function() { 
-	 
 
-	 let List = JSON.parse('${list}');
-	 if(List != null && List.length > 0 ) {
+
+	 var Info = JSON.parse('${Info}');
+	 if(Info != null && Info.length > 0 ) {
 			//화면 생성
 			var listHtml = "";
-			for(var i=0; i<List.length; i++){
+			for(var i=0; i<Info.length; i++){
              listHtml += "<tr>";
-             listHtml += "	<td>"+List[i].column1+"</td>";
-             listHtml += "	<td>"+List[i].column2+"</td>";
-             listHtml += "	<td>"+List[i].column3+"</td>";
-             listHtml += "	<td>"+List[i].column4+"</td>";
-             listHtml += "	<td>"+List[i].column5+"</td>";
-             listHtml += "	<td>"+List[i].column6+"</td>";
+             listHtml += "	<td>"+Info[i].apvform+"</td>";
+             listHtml += "	<td>"+Info[i].apvform+"</td>";
+             listHtml += "	<td>"+Info[i].apvnm+"</td>";
+             listHtml += "	<td>"+Info[i].stfnm+"</td>";
+             listHtml += "	<td>"+Info[i].dptnm+"</td>";
+             listHtml += "	<td>"+Info[i].apvdate+"</td>";
              listHtml += "</tr>";
 			}
 			$("#noticeList").html(listHtml);

@@ -16,7 +16,6 @@
       <button type="submit" class="btn" >
         LOG IN
       </button>
-      
        <div class="bottomText">
         Don't you have ID? <a href="join">sign up</a>
       </div>

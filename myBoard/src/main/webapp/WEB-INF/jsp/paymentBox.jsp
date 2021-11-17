@@ -60,6 +60,8 @@
                         </div>
                     </div>
                 </div>
+              
+<%--                 <input value="${Info.get()}"> --%>
                 <!-- 풋터시작 -->
             <%@include file="../includes/footer.jsp" %>
 <script src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
@@ -67,7 +69,6 @@
  
  $(document).ready(function() { 
 	 
-
 	 let List = JSON.parse('${list}');
 	 if(List != null && List.length > 0 ) {
 			//화면 생성
