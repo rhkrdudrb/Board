@@ -14,8 +14,6 @@ public interface MyMapper {
 	
 	public MyVo login(MyVo mv);
 	
-	public ArrayList<MyVo> test(MyVo mv);
-	
 	public int getListCnt();
 	
 	public ArrayList<MyVo> getList(Criteria cri);

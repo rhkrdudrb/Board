@@ -23,11 +23,7 @@ public class MyServiceImpl extends EgovAbstractServiceImpl implements MyService 
     public MyVo login(MyVo mv) {
 		return MyMapper.login(mv);
 	}
-	public ArrayList<MyVo> test(MyVo mv) {
-		
-		return MyMapper.test(mv);
-	}
-	
+
 	public int getListCnt() {
 		return MyMapper.getListCnt();
 	}

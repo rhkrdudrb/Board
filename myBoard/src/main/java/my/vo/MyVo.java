@@ -14,21 +14,11 @@ public class MyVo extends PageMaker{
 	private String name;
 	private String call;
 	private String companyCall;
-	public String getDepartment() {
-		return Department;
-	}
-	public void setDepartment(String department) {
-		Department = department;
-	}
-	public String getRank() {
-		return rank;
-	}
-	public void setRank(String rank) {
-		this.rank = rank;
-	}
+	private String apvdate;
+    private String apvnm;
 	private String email;
-	private String  Department;
-	private String  rank;
+	private String Department;
+	private String rank;
 	private String companyfirstdate;
 	private String date;
 	private String column6;
@@ -40,17 +30,30 @@ public class MyVo extends PageMaker{
     private String APV_TB;
     private String line;
     private String sq;
+   
+	private String dptsq;
+    private String dptnm;
+    private String stfnm;
+    private String form;
+    private String apvform;
+    public String getDepartment() {
+		return Department;
+	}
+	public void setDepartment(String department) {
+		Department = department;
+	}
+	public String getRank() {
+		return rank;
+	}
+	public void setRank(String rank) {
+		this.rank = rank;
+	}
 	public String getSq() {
 		return sq;
 	}
 	public void setSq(String sq) {
 		this.sq = sq;
 	}
-	private String dptsq;
-    private String dptnm;
-    private String stfnm;
-    private String form;
-    private String apvform;
     public String getName() {
 		return name;
 	}
@@ -105,8 +108,6 @@ public class MyVo extends PageMaker{
 	public void setApvnm(String apvnm) {
 		this.apvnm = apvnm;
 	}
-	private String apvdate;
-    private String apvnm;
 	public String getDptsq() {
 		return dptsq;
 	}

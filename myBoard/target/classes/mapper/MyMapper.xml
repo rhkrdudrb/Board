@@ -77,7 +77,8 @@
 		        ,'A'
 		        ,#{form}
 		        ,SYSDATE
-		        ,#{sq})
+		        ,#{sq}
+		        )
 	 </insert> 
 	 <insert id="divinsert" parameterType="my.vo.MyVo">  
 			 INSERT INTO DIV_APV_TB
@@ -116,6 +117,7 @@
 		,'결재중'
 		)
 		</insert>
+		
 		<insert id="join" parameterType="my.vo.MyVo">  
 		INSERT INTO STF_TB(
 				    STF_SQ
@@ -143,7 +145,7 @@
 				    , #{call}
 				    , #{companyCall}
 				    , #{email}
-				    , #{Companyfirstdate}
+				    , #{companyfirstdate}
 				    , SYSDATE
 				)
 		</insert>
