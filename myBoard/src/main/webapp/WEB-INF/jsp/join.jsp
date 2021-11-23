@@ -26,7 +26,7 @@ select::-ms-expand {
   </head>
 	
   <body width="100%" height="100%">
-  <form action="join" method ="post" class="loginForm1">
+  <form action="joinInsert" method ="post" class="loginForm1">
       <h2>회원가입</h2>
       <div class="idForm">직급 :
        <select id="rank" name="rank" size="1">
@@ -67,20 +67,49 @@ select::-ms-expand {
         <input type="text" class="id" name="email" placeholder="이메일">
       </div>
        <div class="idForm">
-        <input type="text" class="id" name="companyfirstdate" placeholder="입사일">
+       <input type="text" id="sdate" name="companyfirstdate" placeholder="입사일" class="id">
       </div>
-       <div class="idForm">
-        <input type="text" class="id" name="date" placeholder="등록일">
-      </div>
+       
       <button type="submit" class="btn" >
-        LOG IN
+        	확인
       </button>
-      
-       <div class="bottomText">
-        Don't you have ID? <a href="join">sign up</a>
-      </div>
      </form>
-      
-     
+<!-- 제이쿼리 cnd -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script type="text/javascript"> 
+$( document ).ready(function() {
+     $.datepicker.regional['ko'] = {
+		        closeText: '닫기',
+		        prevText: '이전달',
+		        nextText: '다음달',
+		        currentText: '오늘',
+		        monthNames: ['1월(JAN)','2월(FEB)','3월(MAR)','4월(APR)','5월(MAY)','6월(JUN)',
+		        '7월(JUL)','8월(AUG)','9월(SEP)','10월(OCT)','11월(NOV)','12월(DEC)'],
+		        monthNamesShort: ['1월','2월','3월','4월','5월','6월',
+		        '7월','8월','9월','10월','11월','12월'],
+		        dayNames: ['일','월','화','수','목','금','토'],
+		        dayNamesShort: ['일','월','화','수','목','금','토'],
+		        dayNamesMin: ['일','월','화','수','목','금','토'],
+		        weekHeader: 'Wk',
+		        dateFormat: 'yy-mm-dd',
+		        firstDay: 0,
+		        isRTL: false,
+		        showMonthAfterYear: true,
+		        yearSuffix: '',
+		        changeMonth: true,
+		        changeYear: true,
+		        yearRange: 'c-99:c+99',
+		    };
+		    $.datepicker.setDefaults($.datepicker.regional['ko']);
+
+		    $('#sdate').datepicker();
+		    $('#sdate').datepicker("option", "maxDate", $("#edate").val());
+		    $('#sdate').datepicker("option", "onClose", function ( selectedDate ) {
+		        $("#edate").datepicker( "option", "minDate", selectedDate );
+		    });
+});
+</script >		    
   </body>
 </html>

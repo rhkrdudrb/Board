@@ -10,7 +10,11 @@ import my.vo.MyVo;
 @Mapper("MyMapper")
 public interface MyMapper {
 	
-	public void join(MyVo mv);
+	public MyVo join(MyVo mv);
+	
+	public MyVo joinInfo(MyVo mv);
+	
+	public void joinUpdate(MyVo mv);
 	
 	public MyVo login(MyVo mv);
 	
@@ -20,8 +24,9 @@ public interface MyMapper {
 	
 	public void apvinsert(MyVo mv);
 	
-	public void divinsert(MyVo mv);
-	
 	public ArrayList<MyVo> getInfo(MyVo mv);
 	
+	public MyVo paymentDetail(MyVo mv);
+	
+	public ArrayList<MyVo> vue(MyVo mv);
 }

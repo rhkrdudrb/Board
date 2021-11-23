@@ -64,10 +64,11 @@
                 <!-- 풋터시작 -->
             <%@include file="../includes/footer.jsp" %>
 <script src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
  <script>
  
  $(document).ready(function() { 
-
 
 	 var Info = JSON.parse('${Info}');
 	 if(Info != null && Info.length > 0 ) {
@@ -75,7 +76,7 @@
 			var listHtml = "";
 			for(var i=0; i<Info.length; i++){
              listHtml += "<tr>";
-             listHtml += "	<td>"+Info[i].apvform+"</td>";
+             listHtml += "	<td>"+Info[i].apvsq+"</td>";
              listHtml += "	<td>"+Info[i].apvform+"</td>";
              listHtml += "	<td>"+Info[i].apvnm+"</td>";
              listHtml += "	<td>"+Info[i].stfnm+"</td>";
@@ -85,7 +86,19 @@
 			}
 			$("#noticeList").html(listHtml);
 	 }
+	 
+	 $("#dataTable").on("click", "#noticeList > tr", function() {
+			var td = $( this ).children();
+			
+			var form = document.createElement("form");
+			form.action = '/paymentDetail?apvsq='+td.eq(0).text();
+		    form.method = "post";
+
+		    document.body.appendChild(form);
+		    form.submit();
+
+		}); 
  });
- 
+
  
  </script>

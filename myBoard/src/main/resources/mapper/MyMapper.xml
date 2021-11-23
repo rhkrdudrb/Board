@@ -13,17 +13,40 @@
 	</select>
 	
 	<select id="getInfo" resultType="my.vo.MyVo">
-			SELECT S.DPT_SQ AS dptsq,
+			SELECT A.APV_SQ AS apvsq,
 			       D.DPT_NM AS dptnm,
 			       S.STF_NM AS stfnm,
                    A.APV_NM AS apvnm,
                    A.APV_DATE AS apvdate,
-                   A.APV_FORM as apvform
+                   A.APV_FORM as apvform,
+                   A.DIV_APV_SQ AS divapvsq
 			    FROM stf_tb S 
 			    INNER JOIN DPT_TB D ON S.DPT_SQ = D.DPT_SQ
                 INNER JOIN APV_TB A ON S.STF_SQ = A.APV_STF_SQ
 			    WHERE STF_PW = #{pw}
 			    AND STF_ID = #{id}
+			    ORDER BY APV_SQ
+	</select>
+	
+	<select id="paymentDetail" resultType="my.vo.MyVo">
+		 SELECT
+	        APV_FORM AS apvform
+	        ,STF_SQ AS line
+	        ,APV_NM AS apvnm
+	        ,APV_CONTENTS AS apvcnt
+	    	  FROM APV_TB
+	            WHERE APV_SQ = #{apvsq}     
+	</select>
+	
+	<select id="vue" resultType="my.vo.MyVo" parameterType="my.vo.MyVo">
+		 SELECT S.STF_ID AS stfid
+	        ,D.DPT_NM AS dptnm
+	        ,S.STF_NM AS stfnm
+  			 FROM  STF_TB S
+    			INNER JOIN DPT_TB D 
+    				ON S.DPT_SQ = D.DPT_SQ
+			    	 GROUP BY D.DPT_NM,S.STF_ID,D.DPT_SQ,S.STF_NM
+			     	  ORDER BY D.DPT_SQ 
 	</select>
 	
 	<select id="getList" parameterType="my.vo.MyVo" resultType="my.vo.MyVo">
@@ -51,6 +74,18 @@
 		FROM TABLE1
 	</select>
 	
+	<update id="joinUpdate" parameterType="my.vo.MyVo">
+			 UPDATE STF_TB
+			   SET   DPT_SQ = #{Department}
+				    ,RNK_SQ = #{rank}
+				    ,STF_NM = #{name}
+				    ,STF_PH = #{call}
+				    ,STF_BS_PH = #{companyCall}
+				    ,STF_EML = #{email}
+				    ,STF_ENT = #{companyfirstdate}
+			 WHERE STF_ID = #{id}
+	</update>
+	
 	 <insert id="apvinsert" parameterType="my.vo.MyVo">  
 	   INSERT INTO APV_TB (
 	   				DIV_APV_SQ
@@ -65,12 +100,13 @@
                     ,APV_STF_SQ) 
 		VALUES (
 				(SELECT 
-				    NVL(MAX(DIV_APV_SQ)+1,0)AS DIV_APV_SQ
-				    FROM APV_TB)
+				 	DIV_APV_SQ AS DIV_APV_SQ 
+				 FROM DIV_APV_TB
+				  WHERE DIV_APV_NM = #{form})
 		        , (SELECT 
 				     NVL(MAX(APV_SQ)+1,0) AS APV_SQ 
 				     FROM APV_TB)
-		        ,'DS'
+		        ,#{line}
 		        ,#{Title}
 		        ,'DSDS'
 		        ,#{freeContext}
@@ -80,43 +116,6 @@
 		        ,#{sq}
 		        )
 	 </insert> 
-	 <insert id="divinsert" parameterType="my.vo.MyVo">  
-			 INSERT INTO DIV_APV_TB
-		(
-		    DIV_APV_SQ
-		  , DIV_APV_NM
-		)
-		VALUES
-		(
-		(SELECT NVL(MAX(DIV_APV_SQ)+1,0) AS DIV_APV_SQ FROM DIV_APV_TB)
-		,'결재중'
-		)
-		</insert>
-		<insert id="join" parameterType="my.vo.MyVo">  
-			 INSERT INTO DIV_APV_TB
-		(
-		    DIV_APV_SQ
-		  , DIV_APV_NM
-		)
-		VALUES
-		(
-		(SELECT NVL(MAX(DIV_APV_SQ)+1,0) AS DIV_APV_SQ FROM DIV_APV_TB)
-		,'결재중'
-		)
-		</insert>
-		
-		 <insert id="divinsert" parameterType="my.vo.MyVo">  
-			 INSERT INTO DIV_APV_TB
-		(
-		    DIV_APV_SQ
-		  , DIV_APV_NM
-		)
-		VALUES
-		(
-		(SELECT NVL(MAX(DIV_APV_SQ)+1,0) AS DIV_APV_SQ FROM DIV_APV_TB)
-		,'결재중'
-		)
-		</insert>
 		
 		<insert id="join" parameterType="my.vo.MyVo">  
 		INSERT INTO STF_TB(
@@ -131,6 +130,7 @@
 				    ,STF_EML
 				    ,STF_ENT
 				    ,STF_REG
+				    ,STF_ID
 				)
 				VALUES( 
 				    (SELECT 
@@ -140,13 +140,35 @@
 				    , #{department}
 				    , #{rank}
 				    , #{name}
-				    , #{id}
 				    , #{pw}
 				    , #{call}
 				    , #{companyCall}
 				    , #{email}
 				    , #{companyfirstdate}
 				    , SYSDATE
+				    , #{id}
 				)
 		</insert>
+		<select id="joinInfo" parameterType="my.vo.MyVo" resultType="my.vo.MyVo">
+		 select 
+				    S.DPT_SQ as  department
+				    ,S.RNK_SQ as rank
+				    ,S.STF_NM as name
+				    ,S.STF_PW as pw
+				    ,S.STF_PH as call
+				    ,S.STF_BS_PH as companyCall 
+				    ,S.STF_EML as email
+				    ,S.STF_ENT as companyfirstdate
+				    ,S.STF_ID as id
+                    ,D.DPT_NM AS dptnm
+                    ,R.RNK_NM AS rnknm
+			    FROM STF_TB S
+			    INNER JOIN DPT_TB D ON S.DPT_SQ = D.DPT_SQ
+			    INNER JOIN RNK_TB R ON S.DPT_SQ = R.RNK_SQ 
+       				WHERE STF_ID = #{id}
+		       		AND STF_PW = #{pw} 
+								       		
+	</select>
+		 
+		
 </mapper>

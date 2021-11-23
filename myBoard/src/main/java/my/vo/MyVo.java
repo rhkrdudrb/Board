@@ -28,14 +28,45 @@ public class MyVo extends PageMaker{
     private String usrNm;
     private String DIV_APV_SQ;
     private String APV_TB;
-    private String line;
+    private String apvcnt;
+	
+	private String line;
     private String sq;
+    private String divapvsq;
    
-	private String dptsq;
+	private String apvsq;
     private String dptnm;
     private String stfnm;
     private String form;
-    private String apvform;
+    public String getStfid() {
+		return stfid;
+	}
+	public void setStfid(String stfid) {
+		this.stfid = stfid;
+	}
+	private String apvform;
+    private String rnknm;
+    private String stfid;
+    
+    
+    public String getRnknm() {
+		return rnknm;
+	}
+	public void setRnknm(String rnknm) {
+		this.rnknm = rnknm;
+	}
+	public String getApvcnt() {
+		return apvcnt;
+	}
+	public void setApvcnt(String apvcnt) {
+		this.apvcnt = apvcnt;
+	}
+    public String getDivapvsq() {
+		return divapvsq;
+	}
+	public void setDivapvsq(String divapvsq) {
+		this.divapvsq = divapvsq;
+	}
     public String getDepartment() {
 		return Department;
 	}
@@ -108,20 +139,20 @@ public class MyVo extends PageMaker{
 	public void setApvnm(String apvnm) {
 		this.apvnm = apvnm;
 	}
-	public String getDptsq() {
-		return dptsq;
-	}
 	public String getForm() {
 		return form;
 	}
 	public void setForm(String form) {
 		this.form = form;
 	}
-	public void setDptsq(String dptsq) {
-		this.dptsq = dptsq;
-	}
 	public String getDptnm() {
 		return dptnm;
+	}
+	public String getApvsq() {
+		return apvsq;
+	}
+	public void setApvsq(String apvsq) {
+		this.apvsq = apvsq;
 	}
 	public void setDptnm(String dptnm) {
 		this.dptnm = dptnm;

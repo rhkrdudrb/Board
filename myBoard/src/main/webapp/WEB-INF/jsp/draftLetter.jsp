@@ -57,22 +57,17 @@
                                <textarea id="freeContext" name="freeContext" style="height: 1000px"></textarea>
                                
                         </div>
-                        <%
-                        String id = (String)session.getAttribute("id");
-                        String pw = (String)session.getAttribute("pw");
-                        String sq = (String)session.getAttribute("sq");
-                        %>
-                        <input type="hidden" id="id"name="id" value="<%= id %>"/>
-                        <input type="hidden" id="pw"name="pw" value="<%= pw %>"/>
-                        <input type="hidden" id="sq"name="sq" value="<%= sq %>"/>
+                     
+                        <input type="hidden" id="id" name="id" value="<%= session.getAttribute("id") %>"/>
+                        <input type="hidden" id="pw" name="pw" value="<%= session.getAttribute("pw") %>"/>
+                        <input type="hidden" id="sq" name="sq" value="<%= session.getAttribute("sq") %>"/>
                         <input type="hidden" id="form"name="form"/>
                         <div style="position: relative; left: 1650px; top=-20px;">
                         <input type="hidden" id ="line" name="line"></div>
-                        <input type="submit" class="page-link" value="결재상신"></input>
+                        <input type="submit" class="page-link" id="test"value="결재상신"></input>
                         </div>
                     </div>
                 </div>
-                
                 </form>
                 <!-- 풋터시작 -->
             <%@include file="../includes/footer.jsp" %>

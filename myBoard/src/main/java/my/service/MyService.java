@@ -18,4 +18,11 @@ public interface MyService {
 	
 	public ArrayList<MyVo> getList(Criteria cri);
 	
+	public MyVo paymentDetail(MyVo mv);
+	
+	public MyVo joinInfo(MyVo mv);
+	
+	public String joinUpdate(MyVo mv);
+	
+	public ArrayList<MyVo> vue(MyVo mv);
 }

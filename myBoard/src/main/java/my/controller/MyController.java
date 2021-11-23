@@ -2,6 +2,8 @@ package my.controller;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.enterprise.inject.Model;
@@ -15,10 +17,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
+import my.mapper.MyMapper;
 import my.service.MyService;
 import my.vo.Criteria;
 import my.vo.MyVo;
@@ -52,6 +57,8 @@ public class MyController {
 			session.setAttribute("id", id);
 			session.setAttribute("pw", pw);
 			session.setAttribute("sq", login.getSq());
+			session.setAttribute("name", login.getUsrNm());
+			mav.addObject("login", login);
 			String jsonData = gson.toJson(MyService.getList(cri));
 			mav.addObject("list", jsonData);
 			
@@ -66,7 +73,37 @@ public class MyController {
 		}
 		return mav;
 	}	
-	
+	@RequestMapping(value="/logout")
+	public ModelAndView logout(HttpServletRequest req,HttpServletResponse res,ModelAndView mav,@ModelAttribute MyVo vo,Criteria cri) throws Exception {
+		HttpSession session = req.getSession();
+		 session.removeAttribute("id");
+		 session.removeAttribute("pw");
+		 res.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = res.getWriter();
+			out.println("<script>alert('로그아웃이 완료되었습니다.');</script>");
+			out.flush();  
+			mav.setViewName("login");
+		return mav;
+	}	
+	@RequestMapping(value="/joinInfo")
+	public ModelAndView joinInfo(HttpServletRequest req,HttpServletResponse res,ModelAndView mav,@ModelAttribute MyVo vo,Criteria cri) throws Exception {
+		MyVo joinInfo = MyService.joinInfo(vo);
+		
+		mav.addObject("joinInfo", joinInfo);
+		mav.setViewName("joinInfo");
+		return mav;
+	}
+	@RequestMapping(value="/joinUpdate")
+	@ResponseBody
+	public ModelAndView joinUpdate(HttpServletRequest mRequest,@ModelAttribute MyVo vo,Criteria cri) throws Exception {
+		mRequest.setCharacterEncoding("UTF-8");
+		String rs = MyService.joinUpdate(vo);
+		if("S".equals(rs)) {
+			mav.setViewName("joinInfo");
+		}
+			
+		return mav;
+	}
 	@RequestMapping(value="/end")
 	public ModelAndView end(HttpServletRequest req,HttpServletResponse res,ModelAndView mav,@ModelAttribute MyVo vo,Criteria cri) throws Exception {
 //		HttpSession session = req.getSession();
@@ -167,6 +204,23 @@ public class MyController {
 		mav.setViewName("paymentBox");	
 		return mav;
 	}
+	@RequestMapping(value="/paymentDetail")
+	public ModelAndView paymentDetail(HttpServletRequest req,HttpServletResponse res,ModelAndView mav,@ModelAttribute MyVo vo,Criteria cri) throws Exception {
+			MyVo paymentDetail = MyService.paymentDetail(vo);
+			mav.addObject("paymentDetail", paymentDetail);
+	
+			mav.setViewName("paymentDetail");	
+		return mav;
+	}
+	//produces = "application/text; charset=utf8" -------->Ajax 한글인코딩
+	@RequestMapping(value="/vue" ,produces = "application/text; charset=utf8")
+	@ResponseBody
+	public String vue(HttpServletRequest req,HttpServletResponse res,ModelAndView mav,@ModelAttribute MyVo vo,Criteria cri) throws Exception {
+		String jsonData1 = gson.toJson(MyService.vue(vo));
+		res.setCharacterEncoding("UTF-8");
+		return jsonData1;
+	}
+	
 	@RequestMapping(value="/paymentInfo")
 	public ModelAndView paymentInfo(HttpServletRequest req,HttpServletResponse res,ModelAndView mav,@ModelAttribute MyVo vo,Criteria cri) throws Exception {
 		HttpSession session = req.getSession();
@@ -198,6 +252,11 @@ public class MyController {
 
 		return mav;
 	}
+	@RequestMapping(value="/join")
+	public ModelAndView join(HttpServletRequest req,HttpServletResponse res,ModelAndView mav,@ModelAttribute MyVo vo,Criteria cri) throws Exception {
+		mav.setViewName("join");	
+		return mav;
+	}
 	@RequestMapping(value="/approvalline")
 	public ModelAndView approvalline(HttpServletRequest req,HttpServletResponse res,ModelAndView mav,@ModelAttribute MyVo vo,Criteria cri) throws Exception {
 //		HttpSession session = req.getSession();
@@ -215,19 +274,10 @@ public class MyController {
 		mav.setViewName("approvalline");	
 		return mav;
 	}
-	@RequestMapping(value="/join")
-	public ModelAndView join(HttpServletRequest req,HttpServletResponse res,ModelAndView mav,@ModelAttribute MyVo vo,Criteria cri) throws Exception {
-		System.out.println("직급 = " + vo.getRank());
-		System.out.println("부서 = " + vo.getDepartment());
-		System.out.println("이름    = " + vo.getName());
-		System.out.println("입사일 = "+ vo.getCompanyfirstdate());
-		System.out.println("id = " + vo.getId());
-		System.out.println("pw = " + vo.getPw());
-		System.out.println("전화번호 = " + vo.getCall());
-		System.out.println("회사전화번호 =" + vo.getCompanyCall());
-		System.out.println("이메일 = "  + vo.getEmail());
+	@RequestMapping(value="/joinInsert")
+	public ModelAndView joinInsert(HttpServletRequest req,HttpServletResponse res,ModelAndView mav,@ModelAttribute MyVo vo,Criteria cri) throws Exception {
 		String rs = MyService.join(vo);
-
+		
 		if("S".equals(rs)) {
 			res.setCharacterEncoding("UTF-8");
 			res.setContentType("text/html; charset=UTF-8");
@@ -241,14 +291,17 @@ public class MyController {
 			PrintWriter out = res.getWriter();
 			out.println("<script>alert('오류.');</script>");
 			out.flush();
-			mav.setViewName("login");
+			mav.setViewName("join");
 		}
 		
 		mav.setViewName("login");	
 		return mav;
 	}
+	
 	@RequestMapping(value="/insert")
 	public ModelAndView insert(HttpServletRequest req,HttpServletResponse res,ModelAndView mav,@ModelAttribute MyVo vo,Criteria cri) throws Exception {
+		
+		System.out.println(vo.getDIV_APV_SQ());
 		String rs = MyService.insert(vo);
 
 		if("S".equals(rs)) {

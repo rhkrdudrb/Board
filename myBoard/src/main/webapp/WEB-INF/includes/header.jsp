@@ -229,15 +229,15 @@ select::-ms-expand {
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
                             </div>
                         </li>
-					<!-- 누구누구회원님 -->
-                        <!-- Nav Item - Messages -->
-<!--                         <li class="nav-item dropdown no-arrow mx-1"> -->
-<!--                             <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" -->
-<!--                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
-<!--                                 <i class="fas fa-envelope fa-fw"></i> -->
-<!--                                 Counter - Messages -->
-<!--                                 <span class="badge badge-danger badge-counter">7</span> -->
-<!--                             </a> -->
+	
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="logout()">
+                                <i class="fas fa-envelope fa-fw"></i>
+                             			   로그아웃
+                                
+                            </a>
+                            
                             <!-- Dropdown - Messages -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="messagesDropdown">
@@ -298,14 +298,28 @@ select::-ms-expand {
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 	<!-- 로그아웃버튼 -->
-                        <!-- Nav Item - User Information -->
-<!--                         <li class="nav-item dropdown no-arrow"> -->
-<!--                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" -->
-<!--                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
-<!--                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span> -->
-<!--                                 <img class="img-profile rounded-circle" -->
-<!--                                     src="/img/undraw_profile.svg"> -->
-<!--                             </a> -->
+						<li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" onclick="joinInfo()"  id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                		회원정보수정
+                                 </span>
+                            </a>
+                            <li>
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                <%
+		                        String name = (String)session.getAttribute("name");
+		                        %>
+                               <%=name%> 님
+                                 </span>
+                                <img class="img-profile rounded-circle"
+                                    src="/img/undraw_profile.svg">
+                            </a>
+                            </li>
+                          
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
@@ -333,6 +347,12 @@ select::-ms-expand {
 
                 </nav>
                 <!-- End of Topbar -->
+                <%
+                        String id = (String)session.getAttribute("id");
+                        String pw = (String)session.getAttribute("pw");
+                        %>
+                        <input type="hidden" id="id"name="id" value="<%= id %>"/>
+                        <input type="hidden" id="pw"name="pw" value="<%= pw %>"/>
 <script>
  function draftLetterBox(){
  	location.href = '/draftLetterBox';
@@ -348,5 +368,35 @@ function paymentInfo(){
 }
 function end(){
 	location.href = '/end';
+}
+function logout(){
+	location.href = '/logout';
+}
+function joinInfo(){
+
+	var form = document.createElement("form");
+	form.action = '/joinInfo';
+    form.method = "post";
+    
+    var id = document.createElement('input'); 
+    id.setAttribute("type", "hidden");
+    id.setAttribute("name", "id"); 
+    id.setAttribute("value", $("#id").val());
+
+//     id.name = id;
+//     id.value = $("#id").val();
+    
+    var pw = document.createElement('input');
+    pw.setAttribute("type", "hidden");
+    pw.setAttribute("name", "pw"); 
+    pw.setAttribute("value", $("#pw").val());
+    
+//     pw.name = pw;
+//     pw.value = $("#pw").val();
+    
+    form.appendChild(id);
+    form.appendChild(pw);
+    document.body.appendChild(form);
+    form.submit();
 }
 </script>
