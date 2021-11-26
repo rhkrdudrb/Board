@@ -5,7 +5,7 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <!-- 헤더시작부분 -->
 	<%@include file="../includes/header.jsp" %>
-			<form action=draftLetterBox method="post">
+			<form action="paymentBox" method="post">
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 

@@ -29,26 +29,100 @@ public class MyVo extends PageMaker{
     private String DIV_APV_SQ;
     private String APV_TB;
     private String apvcnt;
-	
+    
+	private String dptsq;
 	private String line;
     private String sq;
     private String divapvsq;
-   
+    private int apvodad;
+	private String apvodadCh;
+	private int apvodadChint;
+	private String apvodadlastCh;
+	
 	private String apvsq;
     private String dptnm;
     private String stfnm;
     private String form;
+	private String apvform;
+    private String rnknm;
+    
+	private String stfid;
+    private String state;
+    private String[] treename;
+    
+    private String treenameinsert;
+    
+    private int treeorder;
+    private int apv_sq;
+    
+    
+    public String getApvodadlastCh() {
+		return apvodadlastCh;
+	}
+	public void setApvodadlastCh(String apvodadlastCh) {
+		this.apvodadlastCh = apvodadlastCh;
+	}
+    public int getApvodadChint() {
+		return apvodadChint;
+	}
+	public void setApvodadChint(int apvodadChint) {
+		this.apvodadChint = apvodadChint;
+	}
+    public String getApvodadCh() {
+		return apvodadCh;
+	}
+	public void setApvodadCh(String apvodadCh) {
+		this.apvodadCh = apvodadCh;
+	}
+    public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
+    public int getApvodad() {
+		return apvodad;
+	}
+	public void setApvodad(int apvodad) {
+		this.apvodad = apvodad;
+	}
+    public int getApv_sq() {
+		return apv_sq;
+	}
+	public void setApv_sq(int apv_sq) {
+		this.apv_sq = apv_sq;
+	}
+	public int getTreeorder() {
+		return treeorder;
+	}
+	public void setTreeorder(int treeorder) {
+		this.treeorder = treeorder;
+	}
+	public String getTreenameinsert() {
+		return treenameinsert;
+	}
+	public void setTreenameinsert(String treenameinsert) {
+		this.treenameinsert = treenameinsert;
+	}
+	public String[] getTreename() {
+		return treename;
+	}
+	public void setTreename(String[] treename) {
+		this.treename = treename;
+	}
+	public String getDptsq() {
+		return dptsq;
+	}
+	public void setDptsq(String dptsq) {
+		this.dptsq = dptsq;
+	}
     public String getStfid() {
 		return stfid;
 	}
 	public void setStfid(String stfid) {
 		this.stfid = stfid;
 	}
-	private String apvform;
-    private String rnknm;
-    private String stfid;
-    
-    
+
     public String getRnknm() {
 		return rnknm;
 	}

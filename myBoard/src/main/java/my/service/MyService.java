@@ -14,6 +14,8 @@ public interface MyService {
 	
 	public ArrayList<MyVo> getInfo(MyVo mv);
 	
+	public ArrayList<MyVo> getpaymentInfo(MyVo mv);
+	
 	public int getListCnt();
 	
 	public ArrayList<MyVo> getList(Criteria cri);
@@ -24,5 +26,11 @@ public interface MyService {
 	
 	public String joinUpdate(MyVo mv);
 	
+	public String stateUpdate(MyVo mv);
+	
+	public String companionUpdate(MyVo mv); 
+	
 	public ArrayList<MyVo> vue(MyVo mv);
+	
+	public ArrayList<MyVo> vuedpt(MyVo mv);
 }

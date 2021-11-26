@@ -19,7 +19,8 @@
                    A.APV_NM AS apvnm,
                    A.APV_DATE AS apvdate,
                    A.APV_FORM as apvform,
-                   A.DIV_APV_SQ AS divapvsq
+                   A.DIV_APV_SQ AS divapvsq,
+                   A.APV_STATE AS state 
 			    FROM stf_tb S 
 			    INNER JOIN DPT_TB D ON S.DPT_SQ = D.DPT_SQ
                 INNER JOIN APV_TB A ON S.STF_SQ = A.APV_STF_SQ
@@ -38,15 +39,81 @@
 	            WHERE APV_SQ = #{apvsq}     
 	</select>
 	
+	<select id="stateUpdatelastCheck" resultType="int">
+		  SELECT MAX(APV_OD_AD) AS apvodadlastCh
+		     FROM APV_AD_TB
+		     WHERE APV_SQ_AD =  #{apvsq}		  
+	</select>
+	
+	
+	<select id="stateUpdateCheck" resultType="String">
+		 SELECT APV_AD_STATE AS apvodadCh
+		      FROM APV_AD_TB  
+		     WHERE APV_SQ_AD = #{apvsq}
+			  AND APV_OD_AD = #{apvodadChint}
+	</select>
+	
+	<update id="stateUpdatelast"  parameterType="my.vo.MyVo">
+		UPDATE APV_TB
+		   SET APV_STATE = 'S'
+		 WHERE APV_SQ = #{apvsq}
+	</update>
+	
+	<update id="stateUpdate"  parameterType="my.vo.MyVo">
+		UPDATE APV_AD_TB
+		   SET APV_AD_STATE = 'S'
+		 WHERE APV_SQ_AD = #{apvsq}
+		    AND APV_OD_AD = #{apvodad}
+		    AND STF_SQ_AD = #{id}
+	</update>
+	
+	<update id="companionUpdatelast"  parameterType="my.vo.MyVo">
+		UPDATE APV_TB
+		   SET APV_STATE = 'B'
+		 WHERE APV_SQ = #{apvsq}
+	</update>
+	
+	<update id="companionUpdate"  parameterType="my.vo.MyVo">
+		UPDATE APV_AD_TB
+		   SET APV_AD_STATE = 'B'
+		 WHERE APV_SQ_AD = #{apvsq}
+		    AND APV_OD_AD = #{apvodad}
+		    AND STF_SQ_AD = #{id}
+	</update>
+	
+	<select id="getpaymentInfo" resultType="my.vo.MyVo">
+		SELECT
+		   A.APV_FORM AS apvform
+		  ,A.APV_NM AS apvnm
+		  ,S.STF_NM AS stfnm
+		  ,P.DPT_NM as dptnm
+		  ,A.APV_DATE as apvdate
+		  ,A.APV_SQ AS apvsq
+		  ,D.APV_AD_STATE AS state
+		  ,D.APV_OD_AD AS apvodad
+			 FROM APV_TB A
+			  INNER JOIN APV_AD_TB D ON A.APV_SQ = D.APV_SQ_AD
+			  INNER JOIN STF_TB S ON A.APV_STF_SQ = S.STF_SQ
+			  INNER JOIN DPT_TB P ON S.DPT_SQ = P.DPT_SQ
+			  WHERE D.STF_SQ_AD = #{id}
+<!-- 			  AND RNUM BETWEEN #{rowStart} AND #{rowEnd} -->
+	</select>
+	
+	<select id="vuedpt" resultType="my.vo.MyVo" parameterType="my.vo.MyVo">
+		SELECT DPT_NM AS dptnm 
+			   ,DPT_SQ AS dptsq	 
+		FROM DPT_TB
+	</select>
+	
 	<select id="vue" resultType="my.vo.MyVo" parameterType="my.vo.MyVo">
-		 SELECT S.STF_ID AS stfid
-	        ,D.DPT_NM AS dptnm
-	        ,S.STF_NM AS stfnm
-  			 FROM  STF_TB S
-    			INNER JOIN DPT_TB D 
-    				ON S.DPT_SQ = D.DPT_SQ
-			    	 GROUP BY D.DPT_NM,S.STF_ID,D.DPT_SQ,S.STF_NM
-			     	  ORDER BY D.DPT_SQ 
+		 SELECT  S.STF_ID AS stfid
+        ,D.DPT_NM AS dptnm 
+        ,S.STF_NM AS stfnm 
+        ,S.DPT_SQ as dptsq
+	   FROM  STF_TB S
+	    INNER JOIN DPT_TB D ON S.DPT_SQ = D.DPT_SQ
+	     GROUP BY D.DPT_NM,S.STF_ID,D.DPT_SQ,S.STF_NM,S.DPT_SQ
+	     ORDER BY D.DPT_SQ
 	</select>
 	
 	<select id="getList" parameterType="my.vo.MyVo" resultType="my.vo.MyVo">
@@ -115,6 +182,30 @@
 		        ,SYSDATE
 		        ,#{sq}
 		        )
+	 </insert> 
+	 <insert id="apvAdinsert" parameterType="my.vo.MyVo">  
+		 <selectKey keyProperty="apv_sq" order="BEFORE" resultType="int">
+		SELECT APV_SQ  FROM APV_TB
+			WHERE APV_STF_SQ = #{sq} 
+			      AND APV_FORM = #{form}
+			      AND APV_NM = #{Title}
+			      AND STF_SQ = #{line}
+		 </selectKey>
+		  INSERT INTO 
+		  APV_AD_TB
+	        (
+	         APV_SQ_AD
+			 ,APV_OD_AD
+			 ,STF_SQ_AD
+			 ,APV_AD_STATE
+	        )
+	    VALUES
+	        (
+	        #{apv_sq}
+	        ,#{treeorder}
+	        ,#{treenameinsert}
+	        ,'A'
+	        )
 	 </insert> 
 		
 		<insert id="join" parameterType="my.vo.MyVo">  

@@ -61,9 +61,10 @@
                         <input type="hidden" id="id" name="id" value="<%= session.getAttribute("id") %>"/>
                         <input type="hidden" id="pw" name="pw" value="<%= session.getAttribute("pw") %>"/>
                         <input type="hidden" id="sq" name="sq" value="<%= session.getAttribute("sq") %>"/>
-                        <input type="hidden" id="form"name="form"/>
+                        <input type="hidden" id="form" name="form"/>
                         <div style="position: relative; left: 1650px; top=-20px;">
                         <input type="hidden" id ="line" name="line"></div>
+                        <input type="hidden" id ="treename" name="treename"></div>
                         <input type="submit" class="page-link" id="test"value="결재상신"></input>
                         </div>
                     </div>
@@ -108,12 +109,19 @@ $(function() {
  		window.open('approvalline','popupView',"width=800,height=650,left="+_left+",top="+_top);
 	}
 	//자식창에서 받아온 데이터적용
-	function setData(treeCnt){
+	function setData(treeCnt,ValueArry){
+		//id 값
+    	$('#treename').val(ValueArry);
 		
 		var now = new Date();
 		var date = now.getMonth()+1 +"/" + now.getDate();
+		
 		var SetTreeCnt = treeCnt.text();
+		//텍스트값
 		$('#line').val(SetTreeCnt);
+		var TreeNameString = $('#line').val();
+		//배열로 변환---> 텍스트
+		var TreeName = TreeNameString.split(" ");
 		ckHtml = "";
 		var ckHtml = new StringBuffer();
 		if($('#select').val() == 1){
@@ -126,38 +134,20 @@ $(function() {
 			ckHtml +="<table border='1' cellpadding='1' cellspacing='1' style='width:500px'>";
 			ckHtml +="<tbody>";
 			ckHtml +="<tr>";
-			if(SetTreeCnt.substring(1,7)){
-				ckHtml +="<td style=text-align:center;'width:120px'>"+ SetTreeCnt.substring(1,7) +"</td>";
-			}else {ckHtml +="<td style='width:120px'></td>";}
-			if(SetTreeCnt.substring(8,14)){
-				ckHtml +="<td style='text-align:center; width:120px'>"+ SetTreeCnt.substring(8,14) +"</td>";
-			}else {ckHtml +="<td style='width:120px'></td>";}
-			if(SetTreeCnt.substring(15,21)){
-				ckHtml +="<td style='text-align:center; width:120px'>"+ SetTreeCnt.substring(15,21) +"</td>";
-			}else {ckHtml +="<td style='width:120px'></td>";}
-			if(SetTreeCnt.substring(22,28)){
-				ckHtml +="<td style='text-align:center; width:120px'>"+ SetTreeCnt.substring(22,28) +"</td>";
-			}else {ckHtml +="<td style='width:120px'></td>";}
+			for(var i = 0; i<TreeName.length-1; i++){
+					ckHtml +="<td style=text-align:center;'width:120px'>"+ TreeName[i] +"</td>";
+			}
 			ckHtml +="</tr>";
 			ckHtml +="<tr>";
-			ckHtml +="<td style='height:80px'>&nbsp;</td>";
-			ckHtml +="<td style='height:80px'>&nbsp;</td>";
-			ckHtml +="<td style='height:80px'>&nbsp;</td>";
-			ckHtml +="<td style='height:80px'>&nbsp;</td>";
+			for(var i = 1; i<TreeName.length; i++){
+				ckHtml +="<td style='height:80px'>&nbsp;</td>";
+			}
 			ckHtml +="</tr>";
 			ckHtml +="<tr>";
-			if(SetTreeCnt.substring(1,7)){
+			for(var i = 1; i<TreeName.length; i++){
 				ckHtml +="<td style='text-align:center; width:120px'>" +date +"</td>";
-			}else{ckHtml +="<td style='width:120px'></td>";}
-			if(SetTreeCnt.substring(8,14)){
-				ckHtml +="<td style='text-align:center; width:120px'>" +date +"</td>";
-			}else{ckHtml +="<td style='width:120px'></td>";}
-			if(SetTreeCnt.substring(15,21)){
-				ckHtml +="<td style='text-align:center; width:120px'>" +date +"</td>";
-			}else{ckHtml +="<td style='width:120px'></td>";}
-			if(SetTreeCnt.substring(22,28)){
-				ckHtml +="<td style='text-align:center; width:120px'>" +date +"</td>";
-			}else{ckHtml +="<td style='width:120px'></td>";}
+			}
+			
 			ckHtml +="</tr>";
 			ckHtml +="</tbody>";
 			ckHtml +="</table>";
@@ -243,38 +233,19 @@ $(function() {
 			ckHtml +="<table border='1' cellpadding='1' cellspacing='1' style='width:500px'>";
 			ckHtml +="<tbody>";
 			ckHtml +="<tr>";
-			if(SetTreeCnt.substring(1,7)){
-				ckHtml +="<td style=text-align:center;'width:120px'>"+ SetTreeCnt.substring(1,7) +"</td>";
-			}else {ckHtml +="<td style='width:120px'></td>";}
-			if(SetTreeCnt.substring(8,14)){
-				ckHtml +="<td style='text-align:center; width:120px'>"+ SetTreeCnt.substring(8,14) +"</td>";
-			}else {ckHtml +="<td style='width:120px'></td>";}
-			if(SetTreeCnt.substring(15,21)){
-				ckHtml +="<td style='text-align:center; width:120px'>"+ SetTreeCnt.substring(15,21) +"</td>";
-			}else {ckHtml +="<td style='width:120px'></td>";}
-			if(SetTreeCnt.substring(22,28)){
-				ckHtml +="<td style='text-align:center; width:120px'>"+ SetTreeCnt.substring(22,28) +"</td>";
-			}else {ckHtml +="<td style='width:120px'></td>";}
+			for(var i = 0; i<TreeName.length-1; i++){
+				ckHtml +="<td style=text-align:center;'width:120px'>"+ TreeName[i] +"</td>";
+			}
 			ckHtml +="</tr>";
 			ckHtml +="<tr>";
-			ckHtml +="<td style='height:80px'>&nbsp;</td>";
-			ckHtml +="<td style='height:80px'>&nbsp;</td>";
-			ckHtml +="<td style='height:80px'>&nbsp;</td>";
-			ckHtml +="<td style='height:80px'>&nbsp;</td>";
+			for(var i = 1; i<TreeName.length; i++){
+				ckHtml +="<td style='height:80px'>&nbsp;</td>";
+			}
 			ckHtml +="</tr>";
 			ckHtml +="<tr>";
-			if(SetTreeCnt.substring(1,7)){
+			for(var i = 1; i<TreeName.length; i++){
 				ckHtml +="<td style='text-align:center; width:120px'>" +date +"</td>";
-			}else{ckHtml +="<td style='width:120px'></td>";}
-			if(SetTreeCnt.substring(8,14)){
-				ckHtml +="<td style='text-align:center; width:120px'>" +date +"</td>";
-			}else{ckHtml +="<td style='width:120px'></td>";}
-			if(SetTreeCnt.substring(15,21)){
-				ckHtml +="<td style='text-align:center; width:120px'>" +date +"</td>";
-			}else{ckHtml +="<td style='width:120px'></td>";}
-			if(SetTreeCnt.substring(22,28)){
-				ckHtml +="<td style='text-align:center; width:120px'>" +date +"</td>";
-			}else{ckHtml +="<td style='width:120px'></td>";}
+			}
 			ckHtml +="</tr>";
 			ckHtml +="</tbody>";
 			ckHtml +="</table>";
@@ -356,38 +327,19 @@ $(function() {
 			ckHtml +="<table border='1' cellpadding='1' cellspacing='1' style='width:500px'>";
 			ckHtml +="<tbody>";
 			ckHtml +="<tr>";
-			if(SetTreeCnt.substring(1,7)){
-				ckHtml +="<td style=text-align:center;'width:120px'>"+ SetTreeCnt.substring(1,7) +"</td>";
-			}else {ckHtml +="<td style='width:120px'></td>";}
-			if(SetTreeCnt.substring(8,14)){
-				ckHtml +="<td style='text-align:center; width:120px'>"+ SetTreeCnt.substring(8,14) +"</td>";
-			}else {ckHtml +="<td style='width:120px'></td>";}
-			if(SetTreeCnt.substring(15,21)){
-				ckHtml +="<td style='text-align:center; width:120px'>"+ SetTreeCnt.substring(15,21) +"</td>";
-			}else {ckHtml +="<td style='width:120px'></td>";}
-			if(SetTreeCnt.substring(22,28)){
-				ckHtml +="<td style='text-align:center; width:120px'>"+ SetTreeCnt.substring(22,28) +"</td>";
-			}else {ckHtml +="<td style='width:120px'></td>";}
+			for(var i = 0; i<TreeName.length-1; i++){
+				ckHtml +="<td style=text-align:center;'width:120px'>"+ TreeName[i] +"</td>";
+			}
 			ckHtml +="</tr>";
 			ckHtml +="<tr>";
-			ckHtml +="<td style='height:80px'>&nbsp;</td>";
-			ckHtml +="<td style='height:80px'>&nbsp;</td>";
-			ckHtml +="<td style='height:80px'>&nbsp;</td>";
-			ckHtml +="<td style='height:80px'>&nbsp;</td>";
+			for(var i = 1; i<TreeName.length; i++){
+				ckHtml +="<td style='height:80px'>&nbsp;</td>";
+			}
 			ckHtml +="</tr>";
 			ckHtml +="<tr>";
-			if(SetTreeCnt.substring(1,7)){
+			for(var i = 1; i<TreeName.length; i++){
 				ckHtml +="<td style='text-align:center; width:120px'>" +date +"</td>";
-			}else{ckHtml +="<td style='width:120px'></td>";}
-			if(SetTreeCnt.substring(8,14)){
-				ckHtml +="<td style='text-align:center; width:120px'>" +date +"</td>";
-			}else{ckHtml +="<td style='width:120px'></td>";}
-			if(SetTreeCnt.substring(15,21)){
-				ckHtml +="<td style='text-align:center; width:120px'>" +date +"</td>";
-			}else{ckHtml +="<td style='width:120px'></td>";}
-			if(SetTreeCnt.substring(22,28)){
-				ckHtml +="<td style='text-align:center; width:120px'>" +date +"</td>";
-			}else{ckHtml +="<td style='width:120px'></td>";}
+			}
 			ckHtml +="</tr>";
 			ckHtml +="</tbody>";
 			ckHtml +="</table>";

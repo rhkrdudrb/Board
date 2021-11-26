@@ -63,117 +63,127 @@
 <!--       > -->
 <!--       	결재순서▼ -->
 <!--        </div> -->
-<!-- 	<div id="demo"></div> -->
+	<div id="demo"></div>
 <!--    <button onclick="popclose()"style="position: relative; left: 320px;" class="snip1535">확인</button> -->
   </div>
     <script>
-    
-    $.ajax({
-	    url: "/vue",
-	    type: "POST",
-	     contentType : "application/json; charset:UTF-8",
-	     async : false,
-	    success: function(data) {
- 	    	var List = JSON.parse(data); 
- 	    	listdpt = "";
- 	    	
- 	    	for(var i=0; i<List.length; i++){
- 	    		listdpt += List[i].dptnm;
- 	    		
- 	    	}
- 	    	
- 	    	
- 	    		let answer = "";
- 	    	    for(let i=0; i<listdpt.length; i++){
- 	    	    	if(listdpt.indexOf(listdpt[i]) === 1) answer += listdpt[i];
- 	    	    }
- 	    	    
- 	    	alert(answer);
- 	    	
-	    	if(List != null && List.length > 0 ) {
-	    		
-				//화면 생성
-				var listHtml = "";
-				 listHtml +="<div style='left: 40; position: relative;' class='droptarget' v-on:drop='drop' v-on:dragover='allowDrop'>";
-				 listHtml +="<ul class='tree'>";
-	             listHtml += "<li>";
-	             listHtml += "<input type='checkbox' id='root'>";
-	             listHtml += "<label for='root'>세연아이넷(주)</label>";
-				for(var i=0; i<List.length; i++){
-	            	 listHtml += "<ul>";
-		             listHtml += "<li>";
-		             //부서 시작
-// 		             IF(LIST[I].DPTNM == "AI빅데이터"){
-		            	 
-		             
-		             listHtml += "<input type='checkbox' id='node"+ i +"'>";
-		             listHtml += "<label for='node"+ i +"'>"+List[i].dptnm +"</label>";
-		             	 
-// 		             }
-	            	 	
-		             
-		             //부서 끝
-		             listHtml += "</li>";
-		             listHtml += "</ul>";
-		             
-	             
-				}
-				listHtml += "</div>";
-				listHtml += "<div style='left: 100; position: relative;' class='droptarget' v-on:drop='drop' v-on:dragover='allowDrop' id='treeCnt'>";
-				listHtml +="결재순서▼"
-				listHtml +="</div>"
-		      
-		       
-				$("#app").html(listHtml);
-			
-		 }
-	    	 var app = new Vue({
-	    	        el: "#app",
+    $(document).ready(function() { 
+    	$.ajax({
+    	    url: "/vuedpt",
+    	    type: "POST",
+    	     contentType : "application/json; charset:UTF-8",
+    	     async : false,
+    	    success: function(data) {
+    	    	callback(data);
+    	    },error: function () {
+    	      alert("에러..");
+    		}
+    	});
+    });
 
-	    	        methods: {
-	    	          dragStart:function(event)  {
-	    	            event.dataTransfer.setData("Text", event.target.id);
-	    	          },
-	    	          dragging:function(event) {
-	    	            document.getElementById("demo").innerHTML =
-	    	              "in";
-	    	          },
-	    	          allowDrop:function(event) {
-	    	            event.preventDefault();
-	    	          },
-	    	          drop:function(event) {
-	    	            event.preventDefault();
-	    	            var data = event.dataTransfer.getData("Text");
-	    	            event.target.appendChild(document.getElementById(data));
-	    	            document.getElementById("demo").innerHTML =
-	    	              "out";
-	    	          }
+    function callback(data){
+    	$.ajax({
+    	    url: "/vue",
+    	    type: "POST",
+    	     contentType : "application/json; charset:UTF-8",
+    	     async : false,
+    	    	success: function(res) {
+    	    	var Listdata = JSON.parse(data); 
+     	    	var List = JSON.parse(res); 
+    	    	if(List != null && List.length > 0 ) {
+    				//화면 생성
+    			 var listHtml = "";
+					 listHtml +="<div style='left: 40; position: relative;' class='droptarget' v-on:drop='drop' v-on:dragover='allowDrop'>";
+    				 listHtml +="<ul class='tree'>";
+    	             listHtml += "<li>";
+    	             listHtml += "<input type='checkbox' id='root'>";
+    	             listHtml += "<label for='root'>세연아이넷(주)</label>";
+    				for(var i=0; i<Listdata.length; i++){
+    					 listHtml += "<ul>";
+    		             listHtml += "<li>";
+    		             listHtml += "<input type='checkbox'  id='node"+ i+1 +"'>";
+    		             listHtml += "<label for='node"+ i +"'>"+Listdata[i].dptnm +"</label>";
+    		             listHtml += "</li>";
+    		             listHtml += "</ul>";
+    		             listHtml += "<ul id='my"+i+"'>";
+    		             listHtml += "</ul>";
+					     for(var j=0; j<List.length; j++){
+					    	 if(Listdata[i].dptsq == List[j].dptsq && Listdata[i].dptnm == List[j].dptnm){
+					    		 listHtml += "<ul>";
+			      			     listHtml += "<li class ='drag-elements' v-on:dragstart='dragStart' v-on:drag='dragging' draggable='true' id='dragtarget"+ j +"'>";
+					    		 listHtml += "<input type='hidden' name='nodeid' value='"+ List[j].stfid+"'>";
+		      			         listHtml += "<input type='checkbox' id='node"+ j +"'>";
+		      			         listHtml += "<label for='node"+ j +"' class='lastTree'>"+List[j].stfnm+" "+"</label>";
+		      			      	 listHtml += "</li>";
+		      			         listHtml += "</ul>";
+		      			       $("#my"+ i).html(listHtml);    			     
+					    	 }
+					     } 
+    				}	
+    				listHtml += "</div>";
+    				listHtml += "<ul class='tree'>";
+    				listHtml += "<form id='frm'>";
+    				listHtml += "<div style='left: 100; position: relative;' class='droptarget' v-on:drop='drop' v-on:dragover='allowDrop' id='treeCnt'>";
+    				listHtml +="결재순서▼";
+    				listHtml +="</div>";
+    				listHtml += "</ul>";
+    				listHtml += "</from>";
+    				listHtml +="<button onclick='popclose()'style='position: relative; left: 320px;' class='snip1535'>확인</button>";
+    			} 
+    	    	$("#app").html(listHtml);
+    	    	 var app = new Vue({
+    	    	        el: "#app",
 
-	    	        }
-	    	      });
-	    	      /* Demo purposes only */
-	    	      $(".hover").mouseleave(
-	    	        function() {
-	    	          $(this).removeClass("hover");
-	    	        }
-	    	      );
-	    },
-	    error: function () {
-	    	alert("에러..");
-		}
+    	    	        methods: {
+    	    	          dragStart:function(event)  {
+    	    	            event.dataTransfer.setData("Text", event.target.id);
+    	    	          },
+    	    	          dragging:function(event) {
+    	    	            document.getElementById("demo").innerHTML =
+    	    	              "in";
+    	    	          },
+    	    	          allowDrop:function(event) {
+    	    	            event.preventDefault();
+    	    	          },
+    	    	          drop:function(event) {
+    	    	            event.preventDefault();
+    	    	            var data = event.dataTransfer.getData("Text");
+    	    	            event.target.appendChild(document.getElementById(data));
+    	    	            document.getElementById("demo").innerHTML =
+    	    	              "out";
+    	    	          }
 
-	});
-     
-    function popclose(){
+    	    	        }
+    	    	      });
+    	    	      /* Demo purposes only */
+    	    	      $(".hover").mouseleave(
+    	    	        function() {
+    	    	          $(this).removeClass("hover");
+    	    	        }
+    	    	      );
+    	    },
+    	    error: function () {
+    	    	alert("에러..");
+    		}
+
+    	});
     	
+    }
+    function popclose(){
+     	//id값 가져오기
+        var Value="";
+        var frm = document.getElementById("frm");
+        var frmvalue = frm.getElementsByTagName("input");
+        for(i=0;i<frm.length;i++){
+        	Value += frmvalue[i].value;
+       }
+    	var ValueArry = Value.split("on");
+    	//text 가져오기
     	var treeText = $('#treeCnt').children('li').children('input').children('label').text();
     	var treeCnt = $('#treeCnt').children('li').val(treeText);
-    	if(treeCnt.length > 9){
-    		alert("결재선 5명 미만으로");
-    	}else{
-          window.opener.setData(treeCnt);
+          window.opener.setData(treeCnt,ValueArry);
           window.close();
-    	}
+    	
 	}
     </script>
   </body>

@@ -59,10 +59,9 @@ public class MyController {
 			session.setAttribute("sq", login.getSq());
 			session.setAttribute("name", login.getUsrNm());
 			mav.addObject("login", login);
-			String jsonData = gson.toJson(MyService.getList(cri));
-			mav.addObject("list", jsonData);
-			
-			
+			String jsonData1 = gson.toJson(MyService.getpaymentInfo(vo));
+			mav.addObject("payInfo", jsonData1);
+	
 			PageMaker pageMaker = new PageMaker();
 			pageMaker.setCri(cri);
 			pageMaker.setTotalCount(MyService.getListCnt());
@@ -129,6 +128,90 @@ public class MyController {
 		mav.setViewName("end");	
 		return mav;
 	}
+	@RequestMapping(value="/companionUpdate")
+	public ModelAndView companionUpdate(HttpServletRequest req,HttpServletResponse res,ModelAndView mav,@ModelAttribute MyVo vo,Criteria cri) throws Exception {
+		HttpSession session = req.getSession();
+		String id = (String)session.getAttribute("id");
+		vo.setId(id);
+		
+		String rs = MyService.companionUpdate(vo);
+		if("S".equals(rs)) {
+			String jsonData1 = gson.toJson(MyService.getpaymentInfo(vo));
+			mav.addObject("payInfo", jsonData1);
+	
+			
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(MyService.getListCnt());
+			mav.addObject("pageMaker", pageMaker);
+			
+			res.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = res.getWriter();
+			out.println("<script>alert('반려완료');</script>");
+			out.flush();  
+			mav.setViewName("paymentBox");
+		}else {
+			String jsonData1 = gson.toJson(MyService.getpaymentInfo(vo));
+			mav.addObject("payInfo", jsonData1);
+	
+			
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(MyService.getListCnt());
+			mav.addObject("pageMaker", pageMaker);
+			
+			res.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = res.getWriter();
+			out.println("<script>alert('에러');</script>");
+			out.flush();  
+			
+			
+			mav.setViewName("paymentBox");
+		}
+		return mav;
+	}
+	@RequestMapping(value="/stateUpdate")
+	public ModelAndView stateUpdate(HttpServletRequest req,HttpServletResponse res,ModelAndView mav,@ModelAttribute MyVo vo,Criteria cri) throws Exception {
+		HttpSession session = req.getSession();
+		String id = (String)session.getAttribute("id");
+		vo.setId(id);
+		
+		String rs = MyService.stateUpdate(vo);
+		if("S".equals(rs)) {
+			String jsonData1 = gson.toJson(MyService.getpaymentInfo(vo));
+			mav.addObject("payInfo", jsonData1);
+	
+			
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(MyService.getListCnt());
+			mav.addObject("pageMaker", pageMaker);
+			
+			res.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = res.getWriter();
+			out.println("<script>alert('결재완료');</script>");
+			out.flush();  
+			mav.setViewName("paymentBox");
+		}else {
+			String jsonData1 = gson.toJson(MyService.getpaymentInfo(vo));
+			mav.addObject("payInfo", jsonData1);
+	
+			
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(MyService.getListCnt());
+			mav.addObject("pageMaker", pageMaker);
+			
+			res.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = res.getWriter();
+			out.println("<script>alert('결재순서가 아닙니다.');</script>");
+			out.flush();  
+			
+			
+			mav.setViewName("paymentBox");
+		}
+		return mav;
+	}
 	@RequestMapping(value="/draftLetter")
 	public ModelAndView draftLetter(HttpServletRequest req,HttpServletResponse res,ModelAndView mav,@ModelAttribute MyVo vo,Criteria cri) throws Exception {
 //		HttpSession session = req.getSession();
@@ -156,52 +239,59 @@ public class MyController {
 	}
 	@RequestMapping(value="/draftLetterBox")
 	public ModelAndView draftLetterBox(HttpServletRequest req,HttpServletResponse res,ModelAndView mav,@ModelAttribute MyVo vo,Criteria cri) throws Exception {
-//		HttpSession session = req.getSession();
-//
-//		if(session.getAttribute("id") == null) {
-//			res.setCharacterEncoding("UTF-8");
-//			res.setContentType("text/html; charset=UTF-8");
-//			PrintWriter out = res.getWriter();
-//			out.println("<script>alert('로그인정보를 확인하세요.');</script>");
-//			out.flush();
-//			mav.setViewName("index");
-//		}else {
-//			
-//		}
-		String jsonData = gson.toJson(MyService.getList(cri));
-		mav.addObject("list", jsonData);
-		
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(MyService.getListCnt());
-		mav.addObject("pageMaker", pageMaker);
-		
-		mav.setViewName("draftLetterBox");	
+		HttpSession session = req.getSession();
+		if(session.getAttribute("id") == null) {
+			res.setCharacterEncoding("UTF-8");
+			res.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = res.getWriter();
+			out.println("<script>alert('로그인정보를 확인하세요.');</script>");
+			out.flush();
+			mav.setViewName("login");
+		}else {
+			String id = (String)session.getAttribute("id");
+			String pw = (String)session.getAttribute("pw");
+			vo.setId(id);
+			vo.setPw(pw);
+			
+			String jsonData1 = gson.toJson(MyService.getInfo(vo));
+			mav.addObject("Info", jsonData1);
+	
+			
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(cri);
+//			pageMaker.setTotalCount(MyService.getListCnt());
+			mav.addObject("pageMaker", pageMaker);
+			
+			mav.setViewName("draftLetterBox");	
+		}
 		return mav;
 	}
 	@RequestMapping(value="/paymentBox")
 	public ModelAndView paymentBox(HttpServletRequest req,HttpServletResponse res,ModelAndView mav,@ModelAttribute MyVo vo,Criteria cri) throws Exception {
-//		HttpSession session = req.getSession();
-//
-//		if(session.getAttribute("id") == null) {
-//			res.setCharacterEncoding("UTF-8");
-//			res.setContentType("text/html; charset=UTF-8");
-//			PrintWriter out = res.getWriter();
-//			out.println("<script>alert('로그인정보를 확인하세요.');</script>");
-//			out.flush();
-//			mav.setViewName("index");
-//		}else {
-//			
-//		}
-		String jsonData = gson.toJson(MyService.getList(cri));
-		mav.addObject("list", jsonData);
 		
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(MyService.getListCnt());
-		mav.addObject("pageMaker", pageMaker);
-		
-		mav.setViewName("paymentBox");	
+		HttpSession session = req.getSession();
+		if(session.getAttribute("id") == null) {
+			res.setCharacterEncoding("UTF-8");
+			res.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = res.getWriter();
+			out.println("<script>alert('로그인정보를 확인하세요.');</script>");
+			out.flush();
+			mav.setViewName("login");
+		}else {
+			String id = (String)session.getAttribute("id");
+			vo.setId(id);
+
+			String jsonData1 = gson.toJson(MyService.getpaymentInfo(vo));
+			mav.addObject("payInfo", jsonData1);
+	
+			
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(cri);
+//			pageMaker.setTotalCount(MyService.getListCnt());
+			mav.addObject("pageMaker", pageMaker);
+			
+			mav.setViewName("paymentBox");	
+		}
 		return mav;
 	}
 	@RequestMapping(value="/paymentDetail")
@@ -212,13 +302,29 @@ public class MyController {
 			mav.setViewName("paymentDetail");	
 		return mav;
 	}
+	@RequestMapping(value="/paymentBoxDetail")
+	public ModelAndView paymentBoxDetail(HttpServletRequest req,HttpServletResponse res,ModelAndView mav,@ModelAttribute MyVo vo,Criteria cri) throws Exception {
+			MyVo paymentDetail = MyService.paymentDetail(vo);
+			mav.addObject("paymentDetail", paymentDetail);
+	
+			mav.setViewName("paymentDetail");	
+		return mav;
+	}
+	//produces = "application/text; charset=utf8" -------->Ajax 한글인코딩
+		@RequestMapping(value="/vuedpt" ,produces = "application/text; charset=utf8")
+		@ResponseBody
+		public String vuedpt(HttpServletRequest req,HttpServletResponse res,ModelAndView mav,@ModelAttribute MyVo vo,Criteria cri) throws Exception {
+			res.setCharacterEncoding("UTF-8");
+			String jsonData1 = gson.toJson(MyService.vuedpt(vo));
+			return jsonData1;
+		}
 	//produces = "application/text; charset=utf8" -------->Ajax 한글인코딩
 	@RequestMapping(value="/vue" ,produces = "application/text; charset=utf8")
 	@ResponseBody
 	public String vue(HttpServletRequest req,HttpServletResponse res,ModelAndView mav,@ModelAttribute MyVo vo,Criteria cri) throws Exception {
-		String jsonData1 = gson.toJson(MyService.vue(vo));
 		res.setCharacterEncoding("UTF-8");
-		return jsonData1;
+		String jsonData2 = gson.toJson(MyService.vue(vo));
+		return jsonData2;
 	}
 	
 	@RequestMapping(value="/paymentInfo")
@@ -231,7 +337,7 @@ public class MyController {
 			PrintWriter out = res.getWriter();
 			out.println("<script>alert('로그인정보를 확인하세요.');</script>");
 			out.flush();
-			mav.setViewName("index");
+			mav.setViewName("login");
 		}else {
 			String id = (String)session.getAttribute("id");
 			String pw = (String)session.getAttribute("pw");
@@ -293,21 +399,17 @@ public class MyController {
 			out.flush();
 			mav.setViewName("join");
 		}
-		
-		mav.setViewName("login");	
 		return mav;
 	}
 	
 	@RequestMapping(value="/insert")
 	public ModelAndView insert(HttpServletRequest req,HttpServletResponse res,ModelAndView mav,@ModelAttribute MyVo vo,Criteria cri) throws Exception {
-		
-		System.out.println(vo.getDIV_APV_SQ());
 		String rs = MyService.insert(vo);
-
+		
 		if("S".equals(rs)) {
 			String jsonData2 = gson.toJson(MyService.getInfo(vo));
 			mav.addObject("Info", jsonData2);
-			mav.setViewName("paymentInfo");	
+			mav.setViewName("paymentBox");	
 		}else {
 			mav.setViewName("draftLetter");
 		}

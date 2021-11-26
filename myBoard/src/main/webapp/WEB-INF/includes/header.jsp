@@ -103,13 +103,13 @@ select::-ms-expand {
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>종결함</span></a>
             </li>
-            <hr class="sidebar-divider my-0"">
-            </li>
-             <li class="nav-item" onclick="end()">
-                <a class="nav-link">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>조직관리</span></a>
-            </li>
+<!--             <hr class="sidebar-divider my-0""> -->
+<!--             </li> -->
+<!--              <li class="nav-item" onclick="end()"> -->
+<!--                 <a class="nav-link"> -->
+<!--                     <i class="fas fa-fw fa-tachometer-alt"></i> -->
+<!--                     <span>조직관리</span></a> -->
+<!--             </li> -->
          
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">

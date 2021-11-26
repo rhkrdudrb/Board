@@ -16,6 +16,18 @@ public interface MyMapper {
 	
 	public void joinUpdate(MyVo mv);
 	
+	public void stateUpdate(MyVo mv);
+	
+	public void stateUpdatelast(MyVo mv);
+	
+	public void companionUpdatelast(MyVo mv);
+	
+	public String stateUpdateCheck(MyVo mv);
+	
+	public void companionUpdate(MyVo mv);
+	
+	public int stateUpdatelastCheck(MyVo mv);
+	
 	public MyVo login(MyVo mv);
 	
 	public int getListCnt();
@@ -24,9 +36,15 @@ public interface MyMapper {
 	
 	public void apvinsert(MyVo mv);
 	
+	public void apvAdinsert(MyVo mv);
+	
 	public ArrayList<MyVo> getInfo(MyVo mv);
+	
+	public ArrayList<MyVo> getpaymentInfo(MyVo mv);
 	
 	public MyVo paymentDetail(MyVo mv);
 	
 	public ArrayList<MyVo> vue(MyVo mv);
+	
+	public ArrayList<MyVo> vuedpt(MyVo mv);
 }
