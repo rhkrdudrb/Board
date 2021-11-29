@@ -40,13 +40,14 @@ public class MyVo extends PageMaker{
 	private String apvodadCh;
 	private int apvodadChint;
 	private String apvodadlastCh;
-	
+	private String stfsq;
 	private String apvsq;
     private String dptnm;
     private String stfnm;
     private String form;
 	private String apvform;
-    private String rnknm;
+    
+	private String rnknm;
     
 	private String stfid;
     private String state;
@@ -57,6 +58,12 @@ public class MyVo extends PageMaker{
     private int treeorder;
     private int apv_sq;
     
+    public String getStfsq() {
+		return stfsq;
+	}
+	public void setStfsq(String stfsq) {
+		this.stfsq = stfsq;
+	}
     public String getApvno() {
 		return apvno;
 	}

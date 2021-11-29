@@ -28,6 +28,7 @@
 			    AND STF_ID = #{id}
 			    ORDER BY APV_SQ
 	</select>
+	
 	<select id="getEndInfo" resultType="my.vo.MyVo">
 			SELECT A.APV_SQ AS apvsq,
 			       D.DPT_NM AS dptnm,
@@ -62,7 +63,6 @@
 		     FROM APV_AD_TB
 		     WHERE APV_SQ_AD =  #{apvsq}		  
 	</select>
-	
 	
 	<select id="stateUpdateCheck" resultType="String">
 		 SELECT APV_AD_STATE AS apvodadCh
@@ -121,13 +121,13 @@
 			  INNER JOIN STF_TB S ON A.APV_STF_SQ = S.STF_SQ
 			  INNER JOIN DPT_TB P ON S.DPT_SQ = P.DPT_SQ
 			  WHERE D.STF_SQ_AD = #{id}
-<!-- 			  AND RNUM BETWEEN #{rowStart} AND #{rowEnd} -->
 	</select>
 	
 	<select id="RealTime" resultType="my.vo.MyVo">
 		SELECT
 		  D.APV_AD_STATE AS state
 		  ,D.APV_OD_AD AS apvodad
+		  ,A.STF_SQ AS stfsq
 			 FROM APV_TB A
 			  INNER JOIN APV_AD_TB D ON A.APV_SQ = D.APV_SQ_AD
               WHERE A.APV_SQ = #{apvsq}
@@ -170,7 +170,8 @@
 		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
 		ORDER BY COLUMN1 DESC
 	</select>
-		<select id="getListCnt" parameterType="int" resultType="int">
+	
+	<select id="getListCnt" parameterType="int" resultType="int">
 		SELECT COUNT(*) 
 		FROM TABLE1
 	</select>
@@ -291,9 +292,6 @@
 			    INNER JOIN DPT_TB D ON S.DPT_SQ = D.DPT_SQ
 			    INNER JOIN RNK_TB R ON S.DPT_SQ = R.RNK_SQ 
        				WHERE STF_ID = #{id}
-		       		AND STF_PW = #{pw} 
-								       		
+		       		AND STF_PW = #{pw}        		
 	</select>
-		 
-		
 </mapper>

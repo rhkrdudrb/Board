@@ -74,6 +74,8 @@
 <!-- <script type="text/javascript" src="/js/ck/ckeditor/ckeditorPa.js"></script> -->
 <script type="text/javascript">
 
+
+
 $(function() {
 	CKEDITOR.replace('freeContext',
 					{//해당 이름으로 된 textarea에 에디터를 적용
@@ -92,9 +94,12 @@ $(function() {
 						break;
 					}
 				});
-
-			});
-$(document).ready(function() { 
-	var Info = JSON.parse('${RealTime}');
+				var Info = JSON.parse('${RealTime}');
+				var form = ${paymentDetail.getApvform()};
+				var stf_sq = Info[0].split(" ");
+				if(stf_sq);
+				
+				
 });
+
 </script>

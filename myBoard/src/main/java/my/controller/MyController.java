@@ -227,27 +227,26 @@ public class MyController {
 	}
 	@RequestMapping(value="/draftLetter")
 	public ModelAndView draftLetter(HttpServletRequest req,HttpServletResponse res,ModelAndView mav,@ModelAttribute MyVo vo,Criteria cri) throws Exception {
-//		HttpSession session = req.getSession();
-//
-//		if(session.getAttribute("id") == null) {
-//			res.setCharacterEncoding("UTF-8");
-//			res.setContentType("text/html; charset=UTF-8");
-//			PrintWriter out = res.getWriter();
-//			out.println("<script>alert('로그인정보를 확인하세요.');</script>");
-//			out.flush();
-//			mav.setViewName("index");
-//		}else {
-//			
-//		}
-		String jsonData = gson.toJson(MyService.getList(cri));
-		mav.addObject("list", jsonData);
-		
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(MyService.getListCnt());
-		mav.addObject("pageMaker", pageMaker);
-		
-		mav.setViewName("draftLetter");	
+		HttpSession session = req.getSession();
+
+		if(session.getAttribute("id") == null) {
+			res.setCharacterEncoding("UTF-8");
+			res.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = res.getWriter();
+			out.println("<script>alert('로그인정보를 확인하세요.');</script>");
+			out.flush();
+			mav.setViewName("index");
+		}else {
+			String jsonData = gson.toJson(MyService.getList(cri));
+			mav.addObject("list", jsonData);
+			
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(MyService.getListCnt());
+			mav.addObject("pageMaker", pageMaker);
+			
+			mav.setViewName("draftLetter");	
+		}
 		return mav;
 	}
 	@RequestMapping(value="/draftLetterBox")
@@ -381,18 +380,6 @@ public class MyController {
 	}
 	@RequestMapping(value="/approvalline")
 	public ModelAndView approvalline(HttpServletRequest req,HttpServletResponse res,ModelAndView mav,@ModelAttribute MyVo vo,Criteria cri) throws Exception {
-//		HttpSession session = req.getSession();
-//
-//		if(session.getAttribute("id") == null) {
-//			res.setCharacterEncoding("UTF-8");
-//			res.setContentType("text/html; charset=UTF-8");
-//			PrintWriter out = res.getWriter();
-//			out.println("<script>alert('로그인정보를 확인하세요.');</script>");
-//			out.flush();
-//			mav.setViewName("index");
-//		}else {
-//			
-//		}
 		mav.setViewName("approvalline");	
 		return mav;
 	}

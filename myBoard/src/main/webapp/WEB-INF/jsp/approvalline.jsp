@@ -138,10 +138,6 @@
     	    	          dragStart:function(event)  {
     	    	            event.dataTransfer.setData("Text", event.target.id);
     	    	          },
-    	    	          dragging:function(event) {
-    	    	            document.getElementById("demo").innerHTML =
-    	    	              "in";
-    	    	          },
     	    	          allowDrop:function(event) {
     	    	            event.preventDefault();
     	    	          },
@@ -149,8 +145,7 @@
     	    	            event.preventDefault();
     	    	            var data = event.dataTransfer.getData("Text");
     	    	            event.target.appendChild(document.getElementById(data));
-    	    	            document.getElementById("demo").innerHTML =
-    	    	              "out";
+
     	    	          }
 
     	    	        }
