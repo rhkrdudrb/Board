@@ -24,12 +24,13 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th style="width: 60px; text-align:center;">번호</th>
+                                            <th style="width: 100px; text-align:center;">결재코드번호</th>
                                             <th style="width: 120px; text-align:center;">양식</th>
-                                            <th style="width: 600px; text-align:center;">제목</th>
+                                            <th style="width: 460px; text-align:center;">제목</th>
                                             <th style="width: 80px; text-align:center;">기안자</th>
                                            <th style="width: 120px; text-align:center;">부서</th>
-                                           <th style="width: 80px; text-align:center;">시행일</th>
+                                           <th style="width: 80px; text-align:center;">등록일</th>
+                                           <th style="width: 80px; text-align:center;">종결상태</th>
                                         </tr>
                                     </thead>
 <!--                                     <tfoot> -->
@@ -48,43 +49,64 @@
                                 </table>
 								 <ul class="pagination">
 								  
-								   <li class="paginate_button page-item previous"><a class="page-link" href="test${pageMaker.makeQuery(pageMaker.startPage - 1)}"> < </a></li>
+								   <li class="paginate_button page-item previous"><a class="page-link" href="draftLetterBox${pageMaker.makeQuery(pageMaker.startPage - 1)}"> < </a></li>
 								  
 								  <c:forEach var="idx" begin="${pageMaker.startPage}" end="${pageMaker.endPage}" >
-								   <li class="paginate_button page-item"><a class="page-link" href="test${pageMaker.makeQuery(idx)}">${idx}</a></li>
+								   <li class="paginate_button page-item"><a class="page-link" href="draftLetterBox${pageMaker.makeQuery(idx)}">${idx}</a></li>
 								  </c:forEach>
 								    
 								
-								   <li class="paginate_button page-item next"><a class="page-link" href="test${pageMaker.makeQuery(pageMaker.endPage)}"> > </a></li>
+								   <li class="paginate_button page-item next"><a class="page-link" href="draftLetterBox${pageMaker.makeQuery(pageMaker.endPage)}"> > </a></li>
 							</ul>	
                         </div>
                     </div>
                 </div>
+              
                 <!-- 풋터시작 -->
             <%@include file="../includes/footer.jsp" %>
 <script src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
  <script>
  
  $(document).ready(function() { 
-	 
 
-	 let List = JSON.parse('${list}');
-	 if(List != null && List.length > 0 ) {
+	 var Info = JSON.parse('${Info}');
+	 if(Info != null && Info.length > 0 ) {
 			//화면 생성
 			var listHtml = "";
-			for(var i=0; i<List.length; i++){
+			for(var i=0; i<Info.length; i++){
              listHtml += "<tr>";
-             listHtml += "	<td>"+List[i].column1+"</td>";
-             listHtml += "	<td>"+List[i].column2+"</td>";
-             listHtml += "	<td>"+List[i].column3+"</td>";
-             listHtml += "	<td>"+List[i].column4+"</td>";
-             listHtml += "	<td>"+List[i].column5+"</td>";
-             listHtml += "	<td>"+List[i].column6+"</td>";
+             listHtml += "	<td>"+Info[i].apvsq+"</td>";
+             listHtml += "	<td>"+Info[i].apvform+"</td>";
+             listHtml += "	<td>"+Info[i].apvnm+"</td>";
+             listHtml += "	<td>"+Info[i].stfnm+"</td>";
+             listHtml += "	<td>"+Info[i].dptnm+"</td>";
+             listHtml += "	<td>"+Info[i].apvdate+"</td>";
+             if(Info[i].state == "A"){
+             listHtml += "<td>결재중..</td>";
+             }else if(Info[i].state == "B"){
+             listHtml += "<td>결재반려</td>";	 
+             }else {
+             listHtml += "<td>결재완료</td>"; 
+             }
              listHtml += "</tr>";
 			}
 			$("#noticeList").html(listHtml);
 	 }
+	 
+	 $("#dataTable").on("click", "#noticeList > tr", function() {
+			var td = $( this ).children();
+			
+			var form = document.createElement("form");
+			form.action = '/paymentDetail?apvsq='+td.eq(0).text();
+		    form.method = "post";
+
+		    document.body.appendChild(form);
+		    form.submit();
+
+		}); 
  });
- 
+
  
  </script>

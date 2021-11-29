@@ -42,12 +42,12 @@
 												<th style="text-align:center; vertical-align: middle;">제목</th>
 												<td>${paymentDetail.getApvnm()}</td>
 											</tr>
+											<tr>
+												<th style="text-align:center; vertical-align: middle;">반려사유</th>
+												<td>${paymentDetail.getApvno()}</td>
+											</tr>
 										</tbody>
 									</table>
-                                 
-							
-								</ul>	
-								
                                <textarea id="freeContext" name="freeContext" style="height: 1000px">
                                ${paymentDetail.getApvcnt()}
                                </textarea>
@@ -71,7 +71,7 @@
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <!-- js 파일  -->
 <script type="text/javascript" src="/js/ck/ckeditor/ckeditor.js"></script>
-<script type="text/javascript" src="/js/ck/ckeditor/ckeditorCnt.js"></script>
+<!-- <script type="text/javascript" src="/js/ck/ckeditor/ckeditorPa.js"></script> -->
 <script type="text/javascript">
 
 $(function() {
@@ -94,4 +94,7 @@ $(function() {
 				});
 
 			});
+$(document).ready(function() { 
+	var Info = JSON.parse('${RealTime}');
+});
 </script>

@@ -43,6 +43,10 @@
 												<th style="text-align:center; vertical-align: middle;">제목</th>
 												<td>${paymentDetail.getApvnm()}</td>
 											</tr>
+											<tr>
+												<th style="text-align:center; vertical-align: middle;">반려사유</th>
+												<td>${paymentDetail.getApvno()}</td>
+											</tr>
 										</tbody>
 									</table>
                                  

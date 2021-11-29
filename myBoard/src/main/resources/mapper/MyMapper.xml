@@ -28,6 +28,23 @@
 			    AND STF_ID = #{id}
 			    ORDER BY APV_SQ
 	</select>
+	<select id="getEndInfo" resultType="my.vo.MyVo">
+			SELECT A.APV_SQ AS apvsq,
+			       D.DPT_NM AS dptnm,
+			       S.STF_NM AS stfnm,
+                   A.APV_NM AS apvnm,
+                   A.APV_DATE AS apvdate,
+                   A.APV_FORM as apvform,
+                   A.DIV_APV_SQ AS divapvsq,
+                   A.APV_STATE AS state 
+			    FROM stf_tb S 
+			    INNER JOIN DPT_TB D ON S.DPT_SQ = D.DPT_SQ
+                INNER JOIN APV_TB A ON S.STF_SQ = A.APV_STF_SQ
+			    WHERE STF_PW = #{pw}
+			    AND STF_ID = #{id}
+			    AND A.APV_STATE != 'A'
+			    ORDER BY APV_SQ
+	</select>
 	
 	<select id="paymentDetail" resultType="my.vo.MyVo">
 		 SELECT
@@ -35,6 +52,7 @@
 	        ,STF_SQ AS line
 	        ,APV_NM AS apvnm
 	        ,APV_CONTENTS AS apvcnt
+	        ,APV_NO AS apvno
 	    	  FROM APV_TB
 	            WHERE APV_SQ = #{apvsq}     
 	</select>
@@ -106,6 +124,15 @@
 <!-- 			  AND RNUM BETWEEN #{rowStart} AND #{rowEnd} -->
 	</select>
 	
+	<select id="RealTime" resultType="my.vo.MyVo">
+		SELECT
+		  D.APV_AD_STATE AS state
+		  ,D.APV_OD_AD AS apvodad
+			 FROM APV_TB A
+			  INNER JOIN APV_AD_TB D ON A.APV_SQ = D.APV_SQ_AD
+              WHERE A.APV_SQ = #{apvsq}
+	</select>
+	
 	<select id="vuedpt" resultType="my.vo.MyVo" parameterType="my.vo.MyVo">
 		SELECT DPT_NM AS dptnm 
 			   ,DPT_SQ AS dptsq	 
@@ -166,7 +193,7 @@
                     ,APV_SQ
                     ,STF_SQ
                     ,APV_NM
-<!--                     ,APV_NO -->
+                    ,APV_NO
                     ,APV_CONTENTS
                     ,APV_STATE
                     ,APV_FORM
@@ -182,7 +209,7 @@
 				     FROM APV_TB)
 		        ,#{line}
 		        ,#{Title}
-<!-- 		        ,'' -->
+		        ,null
 		        ,#{freeContext}
 		        ,'A'
 		        ,#{form}

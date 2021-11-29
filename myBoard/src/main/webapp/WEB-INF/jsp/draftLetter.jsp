@@ -140,7 +140,7 @@ $(function() {
 			ckHtml +="</tr>";
 			ckHtml +="<tr>";
 			for(var i = 1; i<TreeName.length; i++){
-				ckHtml +="<td style='height:80px'>&nbsp;</td>";
+				ckHtml +="<td name='state' style='height:80px'>&nbsp;</td>";
 			}
 			ckHtml +="</tr>";
 			ckHtml +="<tr>";
@@ -239,7 +239,7 @@ $(function() {
 			ckHtml +="</tr>";
 			ckHtml +="<tr>";
 			for(var i = 1; i<TreeName.length; i++){
-				ckHtml +="<td style='height:80px'>&nbsp;</td>";
+				ckHtml +="<td id='state' style='height:80px'>&nbsp;</td>";
 			}
 			ckHtml +="</tr>";
 			ckHtml +="<tr>";
@@ -333,7 +333,7 @@ $(function() {
 			ckHtml +="</tr>";
 			ckHtml +="<tr>";
 			for(var i = 1; i<TreeName.length; i++){
-				ckHtml +="<td style='height:80px'>&nbsp;</td>";
+				ckHtml +="<td id='state"+i+"' style='height:80px'>&nbsp;</td>";
 			}
 			ckHtml +="</tr>";
 			ckHtml +="<tr>";

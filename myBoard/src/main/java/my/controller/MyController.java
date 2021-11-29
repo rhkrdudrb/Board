@@ -64,7 +64,7 @@ public class MyController {
 	
 			PageMaker pageMaker = new PageMaker();
 			pageMaker.setCri(cri);
-			pageMaker.setTotalCount(MyService.getListCnt());
+//			pageMaker.setTotalCount(MyService.getListCnt());
 			mav.addObject("pageMaker", pageMaker);
 	
 			mav.setViewName("paymentBox");
@@ -94,10 +94,18 @@ public class MyController {
 	}
 	@RequestMapping(value="/joinUpdate")
 	@ResponseBody
-	public ModelAndView joinUpdate(HttpServletRequest mRequest,@ModelAttribute MyVo vo,Criteria cri) throws Exception {
+	public ModelAndView joinUpdate(HttpServletRequest req,HttpServletRequest mRequest,@ModelAttribute MyVo vo,Criteria cri) throws Exception {
+		HttpSession session = req.getSession();
 		mRequest.setCharacterEncoding("UTF-8");
+		String id = (String)session.getAttribute("id");
+        String pw = (String)session.getAttribute("pw");
+        vo.setId(id);
+        vo.setPw(pw);
+		
 		String rs = MyService.joinUpdate(vo);
 		if("S".equals(rs)) {
+			MyVo joinInfo = MyService.joinInfo(vo);
+			session.setAttribute("name", joinInfo.getName());
 			mav.setViewName("joinInfo");
 		}
 			
@@ -105,25 +113,31 @@ public class MyController {
 	}
 	@RequestMapping(value="/end")
 	public ModelAndView end(HttpServletRequest req,HttpServletResponse res,ModelAndView mav,@ModelAttribute MyVo vo,Criteria cri) throws Exception {
-//		HttpSession session = req.getSession();
-//
-//		if(session.getAttribute("id") == null) {
-//			res.setCharacterEncoding("UTF-8");
-//			res.setContentType("text/html; charset=UTF-8");
-//			PrintWriter out = res.getWriter();
-//			out.println("<script>alert('로그인정보를 확인하세요.');</script>");
-//			out.flush();
-//			mav.setViewName("index");
-//		}else {
-//			
-//		}
-		String jsonData = gson.toJson(MyService.getList(cri));
-		mav.addObject("list", jsonData);
-		
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(MyService.getListCnt());
-		mav.addObject("pageMaker", pageMaker);
+		HttpSession session = req.getSession();
+		if(session.getAttribute("id") == null) {
+			res.setCharacterEncoding("UTF-8");
+			res.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = res.getWriter();
+			out.println("<script>alert('로그인정보를 확인하세요.');</script>");
+			out.flush();
+			mav.setViewName("login");
+		}else {
+			String id = (String)session.getAttribute("id");
+			String pw = (String)session.getAttribute("pw");
+			vo.setId(id);
+			vo.setPw(pw);
+			
+			String jsonData1 = gson.toJson(MyService.getEndInfo(vo));
+			mav.addObject("Info", jsonData1);
+	
+			
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(cri);
+//			pageMaker.setTotalCount(MyService.getListCnt());
+			mav.addObject("pageMaker", pageMaker);
+			
+			mav.setViewName("end");	
+		}
 		
 		mav.setViewName("end");	
 		return mav;
@@ -133,7 +147,6 @@ public class MyController {
 		HttpSession session = req.getSession();
 		String id = (String)session.getAttribute("id");
 		vo.setId(id);
-		
 		String rs = MyService.companionUpdate(vo);
 		if("S".equals(rs)) {
 			String jsonData1 = gson.toJson(MyService.getpaymentInfo(vo));
@@ -298,7 +311,10 @@ public class MyController {
 	public ModelAndView paymentDetail(HttpServletRequest req,HttpServletResponse res,ModelAndView mav,@ModelAttribute MyVo vo,Criteria cri) throws Exception {
 			MyVo paymentDetail = MyService.paymentDetail(vo);
 			mav.addObject("paymentDetail", paymentDetail);
-	
+			
+			String RealTime = gson.toJson(MyService.RealTime(vo));
+			mav.addObject("RealTime", RealTime);
+			
 			mav.setViewName("paymentDetail");	
 		return mav;
 	}

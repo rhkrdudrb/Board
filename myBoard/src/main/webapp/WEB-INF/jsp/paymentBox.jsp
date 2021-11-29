@@ -169,10 +169,11 @@
 				apvodad.setAttribute("name", "apvodad"); 
 				apvodad.setAttribute("value", td.eq(0).attr('name'));
 				
+				form.appendChild(apvno);
 				form.appendChild(apvsq);
 				form.appendChild(apvodad);
 			    document.body.appendChild(form);
-//		 	    form.submit();	
+		 	    form.submit();	
 		}
 	   
 }  

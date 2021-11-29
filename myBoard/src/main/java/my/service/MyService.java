@@ -14,6 +14,8 @@ public interface MyService {
 	
 	public ArrayList<MyVo> getInfo(MyVo mv);
 	
+	public ArrayList<MyVo> getEndInfo(MyVo mv);
+	
 	public ArrayList<MyVo> getpaymentInfo(MyVo mv);
 	
 	public int getListCnt();
@@ -33,4 +35,6 @@ public interface MyService {
 	public ArrayList<MyVo> vue(MyVo mv);
 	
 	public ArrayList<MyVo> vuedpt(MyVo mv);
+	
+	public ArrayList<MyVo> RealTime(MyVo mv);
 }

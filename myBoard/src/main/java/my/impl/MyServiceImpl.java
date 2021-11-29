@@ -58,6 +58,11 @@ public class MyServiceImpl extends EgovAbstractServiceImpl implements MyService 
 		return MyMapper.getInfo(mv);
 	}
 	
+	public ArrayList<MyVo> getEndInfo(MyVo mv) {
+
+		return MyMapper.getEndInfo(mv);
+	}
+	
 	public String join(MyVo mv) {
 		String result = "S";
 	try {
@@ -122,7 +127,6 @@ public class MyServiceImpl extends EgovAbstractServiceImpl implements MyService 
 		String resultChk = MyMapper.stateUpdateCheck(mv);
 		System.out.println(resultChk);
 		if(resultChk == null || resultChk.equals("B")) {
-			System.out.println("EEEEEEEEEEEEEE");
 					MyMapper.companionUpdate(mv);
 					MyMapper.companionUpdateAll(mv);
 					MyMapper.companionUpdatelast(mv);	
@@ -132,4 +136,8 @@ public class MyServiceImpl extends EgovAbstractServiceImpl implements MyService 
 			}
 		return result;
    }
+
+	public ArrayList<MyVo> RealTime(MyVo mv) {
+		return MyMapper.RealTime(mv);
+	}
 }
