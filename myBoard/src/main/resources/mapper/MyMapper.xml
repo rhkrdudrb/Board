@@ -70,6 +70,7 @@
 	<update id="companionUpdatelast"  parameterType="my.vo.MyVo">
 		UPDATE APV_TB
 		   SET APV_STATE = 'B'
+		      ,APV_NO = #{apvno}
 		 WHERE APV_SQ = #{apvsq}
 	</update>
 	
@@ -79,6 +80,12 @@
 		 WHERE APV_SQ_AD = #{apvsq}
 		    AND APV_OD_AD = #{apvodad}
 		    AND STF_SQ_AD = #{id}
+	</update>
+	
+	<update id="companionUpdateAll"  parameterType="my.vo.MyVo">
+		UPDATE APV_AD_TB
+		   SET APV_AD_STATE = 'B'
+		 WHERE APV_SQ_AD = #{apvsq}
 	</update>
 	
 	<select id="getpaymentInfo" resultType="my.vo.MyVo">
@@ -159,7 +166,7 @@
                     ,APV_SQ
                     ,STF_SQ
                     ,APV_NM
-                    ,APV_NO
+<!--                     ,APV_NO -->
                     ,APV_CONTENTS
                     ,APV_STATE
                     ,APV_FORM
@@ -175,7 +182,7 @@
 				     FROM APV_TB)
 		        ,#{line}
 		        ,#{Title}
-		        ,'DSDS'
+<!-- 		        ,'' -->
 		        ,#{freeContext}
 		        ,'A'
 		        ,#{form}

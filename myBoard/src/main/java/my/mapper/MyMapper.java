@@ -22,6 +22,8 @@ public interface MyMapper {
 	
 	public void companionUpdatelast(MyVo mv);
 	
+	public void companionUpdateAll (MyVo mv);
+	
 	public String stateUpdateCheck(MyVo mv);
 	
 	public void companionUpdate(MyVo mv);

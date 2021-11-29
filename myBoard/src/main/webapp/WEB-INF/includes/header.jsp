@@ -78,13 +78,13 @@ select::-ms-expand {
             </li>
 
             <!-- Divider -->
-            <hr class="sidebar-divider my-0"">
+<!--             <hr class="sidebar-divider my-0""> -->
 
-            <li class="nav-item">
-                <a class="nav-link" onclick="paymentInfo()">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>결제정보</span></a>
-            </li>
+<!--             <li class="nav-item"> -->
+<!--                 <a class="nav-link" onclick="paymentInfo()"> -->
+<!--                     <i class="fas fa-fw fa-tachometer-alt"></i> -->
+<!--                     <span>결제정보</span></a> -->
+<!--             </li> -->
             <hr class="sidebar-divider my-0"">
              <li class="nav-item">
                 <a class="nav-link" onclick="paymentBox()">

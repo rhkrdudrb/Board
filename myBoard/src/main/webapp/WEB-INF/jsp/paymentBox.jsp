@@ -91,8 +91,8 @@
             	 listHtml += "	<td><input type='button'style='cursor:hand; text-align: center;' class='btn btn-primary' disabled='disabled' value='반려'></td>";
             	 listHtml += "	<td><input type='button'style='cursor:hand; text-align: center;' class='btn btn-primary'  disabled='disabled' value='반려'></td>";
              } else{
-            	 listHtml += "	<td><input type='button'style='cursor:hand; text-align: center;' class='btn btn-primary' disabled='disabled' value='완료'></td>";
-            	 listHtml += "	<td><input type='button'style='cursor:hand; text-align: center;' class='btn btn-primary' disabled='disabled' value='완료'></td>";
+            	 listHtml += "	<td><input type='button'style='cursor:hand; text-align: center;' class='btn btn-primary' disabled='disabled' value='승인완료'></td>";
+            	 listHtml += "	<td><input type='button'style='cursor:hand; text-align: center;' class='btn btn-primary' disabled='disabled' value='승인완료'></td>";
              }
              
              listHtml += "</tr>";
@@ -142,27 +142,38 @@
 } 
  function companion() {
 	    var tr = $( "#noticeList > tr" );
-	 	//내가 선택한 영역의 자식
-		var td = tr.children();
-		var form = document.createElement("form");
-		form.action = '/companionUpdate';
-	    form.method = "post";
-	    
-	    //apvsq값 불러오기
-		var apvsq = document.createElement("input");
-		apvsq.setAttribute("type", "hidden");
-		apvsq.setAttribute("name", "apvsq"); 
-		apvsq.setAttribute("value", td.eq(0).text());
-		
-		//apvodad값 불러오기
-		var apvodad = document.createElement("input");
-		apvodad.setAttribute("type", "hidden");
-		apvodad.setAttribute("name", "apvodad"); 
-		apvodad.setAttribute("value", td.eq(0).attr('name'));
-		
-		form.appendChild(apvsq);
-		form.appendChild(apvodad);
-	    document.body.appendChild(form);
-	    form.submit();
+	    var Companion = prompt("반려 사유를 적어주세요","");
+	    var yes = confirm("반려하시겠습니까?");
+		if(yes == true){
+			 	//내가 선택한 영역의 자식
+				var td = tr.children();
+				var form = document.createElement("form");
+				form.action = '/companionUpdate';
+			    form.method = "post";
+			    
+			  //반려사유
+				var apvno = document.createElement("input");
+				apvno.setAttribute("type", "hidden");
+				apvno.setAttribute("name", "apvno"); 
+				apvno.setAttribute("value", Companion);
+			    
+			    //apvsq값 불러오기
+				var apvsq = document.createElement("input");
+				apvsq.setAttribute("type", "hidden");
+				apvsq.setAttribute("name", "apvsq"); 
+				apvsq.setAttribute("value", td.eq(0).text());
+				
+				//apvodad값 불러오기
+				var apvodad = document.createElement("input");
+				apvodad.setAttribute("type", "hidden");
+				apvodad.setAttribute("name", "apvodad"); 
+				apvodad.setAttribute("value", td.eq(0).attr('name'));
+				
+				form.appendChild(apvsq);
+				form.appendChild(apvodad);
+			    document.body.appendChild(form);
+//		 	    form.submit();	
+		}
+	   
 }  
 </script>

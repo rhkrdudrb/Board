@@ -30,10 +30,12 @@ public class MyVo extends PageMaker{
     private String APV_TB;
     private String apvcnt;
     
+    private String apvno;
 	private String dptsq;
 	private String line;
     private String sq;
-    private String divapvsq;
+   
+	private String divapvsq;
     private int apvodad;
 	private String apvodadCh;
 	private int apvodadChint;
@@ -55,7 +57,12 @@ public class MyVo extends PageMaker{
     private int treeorder;
     private int apv_sq;
     
-    
+    public String getApvno() {
+		return apvno;
+	}
+	public void setApvno(String apvno) {
+		this.apvno = apvno;
+	}
     public String getApvodadlastCh() {
 		return apvodadlastCh;
 	}

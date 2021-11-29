@@ -409,7 +409,7 @@ public class MyController {
 		if("S".equals(rs)) {
 			String jsonData2 = gson.toJson(MyService.getInfo(vo));
 			mav.addObject("Info", jsonData2);
-			mav.setViewName("paymentBox");	
+			mav.setViewName("draftLetterBox");	
 		}else {
 			mav.setViewName("draftLetter");
 		}

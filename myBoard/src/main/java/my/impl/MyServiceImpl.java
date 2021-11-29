@@ -122,8 +122,11 @@ public class MyServiceImpl extends EgovAbstractServiceImpl implements MyService 
 		String resultChk = MyMapper.stateUpdateCheck(mv);
 		System.out.println(resultChk);
 		if(resultChk == null || resultChk.equals("B")) {
+			System.out.println("EEEEEEEEEEEEEE");
 					MyMapper.companionUpdate(mv);
-					MyMapper.stateUpdate(mv);	
+					MyMapper.companionUpdateAll(mv);
+					MyMapper.companionUpdatelast(mv);	
+					
 			}else {
 				result = "E";
 			}

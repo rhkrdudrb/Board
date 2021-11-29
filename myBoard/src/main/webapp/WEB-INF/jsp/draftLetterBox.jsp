@@ -85,8 +85,10 @@
              listHtml += "	<td>"+Info[i].apvdate+"</td>";
              if(Info[i].state == "A"){
              listHtml += "<td>결재중..</td>";
-             }else{
-             listHtml += "<td>결재완료</td>";	 
+             }else if(Info[i].state == "B"){
+             listHtml += "<td>결재반려</td>";	 
+             }else {
+             listHtml += "<td>결재완료</td>"; 
              }
              listHtml += "</tr>";
 			}
