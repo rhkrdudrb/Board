@@ -24,14 +24,14 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th style="width: 80px; text-align:center;">결재코드번호</th>
+                                            <th style="width: 100px; text-align:center;">결재코드번호</th>
                                             <th style="width: 120px; text-align:center;">양식</th>
                                             <th style="width: 500px; text-align:center;">제목</th>
                                             <th style="width: 80px; text-align:center;">기안자</th>
                                            <th style="width: 120px; text-align:center;">부서</th>
                                            <th style="width: 80px; text-align:center;">등록일</th>
-                                           <th style="width: 60px; text-align:center;">승인</th>
-                                           <th style="width: 60px; text-align:center;">반려</th>
+                                           <th style="width: 80px; text-align:center;">승인상태</th>
+                                           
                                         </tr>
                                     </thead>
 <!--                                     <tfoot> -->
@@ -79,21 +79,19 @@
 			for(var i=0; i<Info.length; i++){
              listHtml += "<tr>";
              listHtml += "	<td name='"+Info[i].apvodad +"'style='cursor:hand; text-align: center;' onClick='detail()'>"+Info[i].apvsq+"</td>";
-             listHtml += "	<td style='cursor:hand; text-align: center;' onClick='detail()'>"+Info[i].apvform+"</td>";
-             listHtml += "	<td style='cursor:hand; text-align: center;' onClick='detail()'>"+Info[i].apvnm+"</td>";
-             listHtml += "	<td style='cursor:hand; text-align: center;' onClick='detail()'>"+Info[i].stfnm+"</td>";
-             listHtml += "	<td style='cursor:hand; text-align: center;' onClick='detail()'>"+Info[i].dptnm+"</td>";
-             listHtml += "	<td style='cursor:hand; text-align: center;' onClick='detail()'>"+Info[i].apvdate+"</td>";
+             listHtml += "	<td style='cursor:hand; text-align: center;'>"+Info[i].apvform+"</td>";
+             listHtml += "	<td style='cursor:hand; text-align: center;'>"+Info[i].apvnm+"</td>";
+             listHtml += "	<td style='cursor:hand; text-align: center;'>"+Info[i].stfnm+"</td>";
+             listHtml += "	<td style='cursor:hand; text-align: center;'>"+Info[i].dptnm+"</td>";
+             listHtml += "	<td style='cursor:hand; text-align: center;'>"+Info[i].apvdate+"</td>";
              if(Info[i].state == "A"){
-            	 listHtml += "	<td><input onClick='approval()'type='button'style='cursor:hand; text-align: center;' class='btn btn-primary'  value='승인'></td>";
-            	 listHtml += "	<td><input onClick='companion()'type='button'style='cursor:hand; text-align: center;' class='btn btn-primary'  value='반려'></td>";
-             }else if(Info[i].state == "B"){
-            	 listHtml += "	<td><input type='button'style='cursor:hand; text-align: center;' class='btn btn-primary' disabled='disabled' value='반려'></td>";
-            	 listHtml += "	<td><input type='button'style='cursor:hand; text-align: center;' class='btn btn-primary'  disabled='disabled' value='반려'></td>";
-             } else{
-            	 listHtml += "	<td><input type='button'style='cursor:hand; text-align: center;' class='btn btn-primary' disabled='disabled' value='승인완료'></td>";
-            	 listHtml += "	<td><input type='button'style='cursor:hand; text-align: center;' class='btn btn-primary' disabled='disabled' value='승인완료'></td>";
-             }
+                 listHtml += "<td>결재중..</td>";
+                 }else if(Info[i].state == "B"){
+                 listHtml += "<td>결재반려</td>";	 
+                 }else {
+                 listHtml += "<td>결재완료</td>"; 
+                 }
+             
              
              listHtml += "</tr>";
 			}
@@ -101,80 +99,19 @@
 	 }
  });
 
- function detail() {
-	 		//내가 선택한 영역 클릭 
- 			var tr = $( "#noticeList > tr" );
+
+	 		$("#dataTable").on("click", "#noticeList > tr", function() {
 	 		//내가 선택한 영역의 자식
-			var td = tr.children();
+			var td = $( this ).children();
 			var form = document.createElement("form");
 			form.action = '/paymentBoxDetail?apvsq='+td.eq(0).text();//내가 선택한 영역의 자식 0번째 인덱스 요소 텍스트 값 찾기
 		    form.method = "post";
+			
+		    var apvodad = document.createElement("input");
+		    apvodad.setAttribute("value", td.eq(0).attr('name'));
 
+		    form.appendChild(apvodad);
 		    document.body.appendChild(form);
 		    form.submit();
-
-	} 
- function approval() {
-	    var tr = $( "#noticeList > tr" );
-	 	//내가 선택한 영역의 자식
-		var td = tr.children();
-		var form = document.createElement("form");
-		form.action = '/stateUpdate';
-	    form.method = "post";
-	    
-	    //apvsq값 불러오기
-		var apvsq = document.createElement("input");
-		apvsq.setAttribute("type", "hidden");
-		apvsq.setAttribute("name", "apvsq"); 
-		apvsq.setAttribute("value", td.eq(0).text());
-		
-		//apvodad값 불러오기
-		var apvodad = document.createElement("input");
-		apvodad.setAttribute("type", "hidden");
-		apvodad.setAttribute("name", "apvodad"); 
-		apvodad.setAttribute("value", td.eq(0).attr('name'));
-		
-		form.appendChild(apvsq);
-		form.appendChild(apvodad);
-	    document.body.appendChild(form);
-	    form.submit();
-
-} 
- function companion() {
-	    var tr = $( "#noticeList > tr" );
-	    var Companion = prompt("반려 사유를 적어주세요","");
-	    var yes = confirm("반려하시겠습니까?");
-		if(yes == true){
-			 	//내가 선택한 영역의 자식
-				var td = tr.children();
-				var form = document.createElement("form");
-				form.action = '/companionUpdate';
-			    form.method = "post";
-			    
-			  //반려사유
-				var apvno = document.createElement("input");
-				apvno.setAttribute("type", "hidden");
-				apvno.setAttribute("name", "apvno"); 
-				apvno.setAttribute("value", Companion);
-			    
-			    //apvsq값 불러오기
-				var apvsq = document.createElement("input");
-				apvsq.setAttribute("type", "hidden");
-				apvsq.setAttribute("name", "apvsq"); 
-				apvsq.setAttribute("value", td.eq(0).text());
-				
-				//apvodad값 불러오기
-				var apvodad = document.createElement("input");
-				apvodad.setAttribute("type", "hidden");
-				apvodad.setAttribute("name", "apvodad"); 
-				apvodad.setAttribute("value", td.eq(0).attr('name'));
-				
-				form.appendChild(apvno);
-				form.appendChild(apvsq);
-				form.appendChild(apvodad);
-			    document.body.appendChild(form);
-		 	    form.submit();	
-		}
-	   
-}  
+	 	}); 
 </script>

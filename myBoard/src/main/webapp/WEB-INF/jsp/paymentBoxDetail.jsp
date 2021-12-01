@@ -63,6 +63,10 @@
                         <div style="position: relative; left: 1650px; top=-20px;">
                         <input type="hidden" id ="line" name="line"></div>
                         <input type="submit" class="page-link" value="목록가기"></input>
+                        <input type="button" onClick='approval()'class="page-link"   value="승인"></input>
+                        <input type="button" onClick='companion()'class="page-link"   value="반려"></input>
+<!--                 		<input onClick='approval()'class="page-link"  value='승인'/> -->
+<!--             			<input onClick='companion()'class="page-link" value='반려'/> -->
                         </div>
                     </div>
                 </div>
@@ -76,7 +80,7 @@
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <!-- js 파일  -->
 <script type="text/javascript" src="/js/ck/ckeditor/ckeditor.js"></script>
-<script type="text/javascript" src="/js/ck/ckeditor/ckeditorCnt.js"></script>
+<!-- <script type="text/javascript" src="/js/ck/ckeditor/ckeditorCnt.js"></script> -->
 <script type="text/javascript">
 
 $(function() {
@@ -99,4 +103,65 @@ $(function() {
 				});
 
 			});
+		var apvsqVal = ${paymentDetail.getApvsq()};
+		var apvodadVal = ${paymentDetail.getApvodad()};
+function approval() {
+		
+		var form = document.createElement("form");
+		form.action = '/stateUpdate';
+	    form.method = "post";
+	    
+	    //apvsq값 불러오기
+		var apvsq = document.createElement("input");
+		apvsq.setAttribute("type", "hidden");
+		apvsq.setAttribute("name", "apvsq"); 
+		apvsq.setAttribute("value", apvsqVal);
+		
+		//apvodad값 불러오기
+		var apvodad = document.createElement("input");
+		apvodad.setAttribute("type", "hidden");
+		apvodad.setAttribute("name", "apvodad"); 
+		apvodad.setAttribute("value", apvodadVal);
+		
+		form.appendChild(apvsq);
+		form.appendChild(apvodad);
+	    document.body.appendChild(form);
+	    form.submit();
+} 
+function companion() {
+    var tr = $( "#noticeList > tr" );
+    var Companion = prompt("반려 사유를 적어주세요","");
+    var yes = confirm("반려하시겠습니까?");
+	if(yes == true){
+		 	//내가 선택한 영역의 자식
+			var td = $( this ).children();
+			var form = document.createElement("form");
+			form.action = '/companionUpdate';
+		    form.method = "post";
+		    
+		    //반려사유
+			var apvno = document.createElement("input");
+			apvno.setAttribute("type", "hidden");
+			apvno.setAttribute("name", "apvno"); 
+			apvno.setAttribute("value", Companion);
+		    
+		    //apvsq값 불러오기
+			var apvsq = document.createElement("input");
+			apvsq.setAttribute("type", "hidden");
+			apvsq.setAttribute("name", "apvsq"); 
+			apvsq.setAttribute("value", apvsqVal);
+			
+			//apvodad값 불러오기
+			var apvodad = document.createElement("input");
+			apvodad.setAttribute("type", "hidden");
+			apvodad.setAttribute("name", "apvodad"); 
+			apvodad.setAttribute("value", apvodadVal);
+			
+			form.appendChild(apvno);
+			form.appendChild(apvsq);
+			form.appendChild(apvodad);
+		    document.body.appendChild(form);
+	 	    form.submit();	
+	}
+}  
 </script>

@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
    
@@ -5,7 +6,7 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <!-- 헤더시작부분 -->
 	<%@include file="../includes/header.jsp" %>
-			<form action=draftLetterBox method="post">
+			<form action="paymentBox" method="post">
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
@@ -30,25 +31,37 @@
 	                                  </colgroup>
 										<tbody>
 										<tr>
-										<th style="text-align:center; vertical-align: middle;">양식분류</th>
+										<th style="text-align:center; vertical-align: middle">양식분류</th>
 										<td>${paymentDetail.getApvform()}
 								        </td>
 										</tr>
 											<tr>
-												<th style="text-align:center; vertical-align: middle;"  id="Title" >결제선</th>
+												<th style="text-align:center; vertical-align: middle" id="Title" >결제선</th>
 												<td>${paymentDetail.getLine()}</td>
 											</tr>
 											<tr>
-												<th style="text-align:center; vertical-align: middle;">제목</th>
+												<th style="text-align:center; vertical-align: middle">제목</th>
 												<td>${paymentDetail.getApvnm()}</td>
 											</tr>
 											<tr>
-												<th style="text-align:center; vertical-align: middle;">반려사유</th>
+												<th style="text-align:center; vertical-align: middle">승인</th>
+												<td><input type="button" id="approval"  value="승인"/></td>
+											</tr>
+											<tr>
+												<th style="text-align:center; vertical-align: middle">반려</th>
+												<td ><input type="button" id="companion"  value="반려" /></td>
+											</tr>
+											<tr>
+												<th style="text-align:center; vertical-align: middle">반려사유</th>
 												<td>${paymentDetail.getApvno()}</td>
 											</tr>
 										</tbody>
 									</table>
-                               <textarea id="freeContext" name="freeContext" style="height: 1000px">
+                                 
+							
+								</ul>	
+								
+                               <textarea id="freeContext" name="freeContext" style="height: 1000px" disabled="disabled">
                                ${paymentDetail.getApvcnt()}
                                </textarea>
                                
@@ -58,6 +71,8 @@
                         <div style="position: relative; left: 1650px; top=-20px;">
                         <input type="hidden" id ="line" name="line"></div>
                         <input type="submit" class="page-link" value="목록가기"></input>
+<!--                 		<input onClick='approval()'class="page-link"  value='승인'/> -->
+<!--             			<input onClick='companion()'class="page-link" value='반려'/> -->
                         </div>
                     </div>
                 </div>
@@ -71,11 +86,32 @@
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <!-- js 파일  -->
 <script type="text/javascript" src="/js/ck/ckeditor/ckeditor.js"></script>
-<!-- <script type="text/javascript" src="/js/ck/ckeditor/ckeditorPa.js"></script> -->
+<!-- <script type="text/javascript" src="/js/ck/ckeditor/ckeditorCnt.js"></script> -->
 <script type="text/javascript">
+try {
+	var Info = JSON.parse('${paymentDetailsq}');
+	var payInfo = JSON.parse('${payInfo}');
+	if(Info[0].state == 'S'){
+		$("#companion").attr("disabled", true);
+		$("#companion").text("결재중");
+		$("#approval").attr("disabled", true);
+	}else if(Info[0].state == 'B'){
+		$("#companion").attr("disabled", true);
+		$("#companion").text("결재중");
+		$("#approval").attr("disabled", true);
+	}
+	
+	var apvsqVal = Info[0].apvad;
+	if(apvsqVal == null){
+		apvsqVal = 0;
+	}
+	var apvodadVal = Info[0].apvodad;
+	} catch(err) {
 
+		$("#companion").attr("disabled", true);
+		$("#approval").attr("disabled", true);
 
-
+	}
 $(function() {
 	CKEDITOR.replace('freeContext',
 					{//해당 이름으로 된 textarea에 에디터를 적용
@@ -92,14 +128,71 @@ $(function() {
 						dialogDefinition.removeContents('Link');
 						dialogDefinition.removeContents('advanced');
 						break;
+						
 					}
 				});
-				var Info = JSON.parse('${RealTime}');
-				var form = ${paymentDetail.getApvform()};
-				var stf_sq = Info[0].split(" ");
-				if(stf_sq);
-				
-				
+			});
+$('#approval').click(function(){
+	var form = document.createElement("form");
+	form.action = '/stateUpdate';
+    form.method = "post";
+    
+    //apvsq값 불러오기
+	var apvsq = document.createElement("input");
+	apvsq.setAttribute("type", "hidden");
+	apvsq.setAttribute("name", "apvsq"); 
+	apvsq.setAttribute("value", apvsqVal);
+	
+	//apvodad값 불러오기
+	var apvodad = document.createElement("input");
+	apvodad.setAttribute("type", "hidden");
+	apvodad.setAttribute("name", "apvodad"); 
+	apvodad.setAttribute("value", apvodadVal);
+	alert(apvsqVal)
+	alert(apvodadVal)
+	form.appendChild(apvsq);
+	form.appendChild(apvodad);
+    document.body.appendChild(form);
+    form.submit();
+});
+$('#companion').click(function(){
+	var Info = JSON.parse('${paymentDetailsq}');
+	var apvsqVal = Info[0].apvad;
+	var apvodadVal = Info[0].apvodad;
+	var tr = $( "#noticeList > tr" );
+	var Companion = prompt("반려 사유를 적어주세요","");
+	var yes = confirm("반려하시겠습니까?");
+	if(yes == true){
+	 	//내가 선택한 영역의 자식
+		var td = $( this ).children();
+		var form = document.createElement("form");
+		form.action = '/companionUpdate';
+	    form.method = "post";
+	    
+	    //반려사유
+		var apvno = document.createElement("input");
+		apvno.setAttribute("type", "hidden");
+		apvno.setAttribute("name", "apvno"); 
+		apvno.setAttribute("value", Companion);
+	    
+	    //apvsq값 불러오기
+		var apvsq = document.createElement("input");
+		apvsq.setAttribute("type", "hidden");
+		apvsq.setAttribute("name", "apvsq"); 
+		apvsq.setAttribute("value", apvsqVal);
+		
+		//apvodad값 불러오기
+		var apvodad = document.createElement("input");
+		apvodad.setAttribute("type", "hidden");
+		apvodad.setAttribute("name", "apvodad"); 
+		apvodad.setAttribute("value", apvodadVal);
+		
+		form.appendChild(apvno);
+		form.appendChild(apvsq);
+		form.appendChild(apvodad);
+	    document.body.appendChild(form);
+ 	    form.submit();	
+}
 });
 
 </script>

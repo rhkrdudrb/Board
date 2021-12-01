@@ -140,12 +140,12 @@ $(function() {
 			ckHtml +="</tr>";
 			ckHtml +="<tr>";
 			for(var i = 1; i<TreeName.length; i++){
-				ckHtml +="<td name='state' style='height:80px'>&nbsp;</td>";
+				ckHtml +="<td id='state' style='height:80px'>&nbsp;</td>";
 			}
 			ckHtml +="</tr>";
 			ckHtml +="<tr>";
 			for(var i = 1; i<TreeName.length; i++){
-				ckHtml +="<td style='text-align:center; width:120px'>" +date +"</td>";
+				ckHtml +="<td style='text-align:center; width:120px'></td>";
 			}
 			
 			ckHtml +="</tr>";
@@ -239,12 +239,12 @@ $(function() {
 			ckHtml +="</tr>";
 			ckHtml +="<tr>";
 			for(var i = 1; i<TreeName.length; i++){
-				ckHtml +="<td id='state' style='height:80px'>&nbsp;</td>";
+				ckHtml +="<td id='state' style='height:80px' id='state'>&nbsp;</td>";
 			}
 			ckHtml +="</tr>";
 			ckHtml +="<tr>";
 			for(var i = 1; i<TreeName.length; i++){
-				ckHtml +="<td style='text-align:center; width:120px'>" +date +"</td>";
+				ckHtml +="<td style='text-align:center; width:120px'></td>";
 			}
 			ckHtml +="</tr>";
 			ckHtml +="</tbody>";
@@ -333,12 +333,12 @@ $(function() {
 			ckHtml +="</tr>";
 			ckHtml +="<tr>";
 			for(var i = 1; i<TreeName.length; i++){
-				ckHtml +="<td id='state"+i+"' style='height:80px'>&nbsp;</td>";
+				ckHtml +="<td id='state' style='height:80px' >&nbsp;</td>";
 			}
 			ckHtml +="</tr>";
 			ckHtml +="<tr>";
 			for(var i = 1; i<TreeName.length; i++){
-				ckHtml +="<td style='text-align:center; width:120px'>" +date +"</td>";
+				ckHtml +="<td style='text-align:center; width:120px'></td>";
 			}
 			ckHtml +="</tr>";
 			ckHtml +="</tbody>";
